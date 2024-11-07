@@ -1,0 +1,38 @@
+<div class="login-container">
+
+  <!-- Formulário de Registro -->
+  <div class="form-container">
+    <h2>Criar Conta</h2>
+    <div class="inputs">
+      <!-- Nome Completo -->
+      <div class="form-group">
+        <label for="fullName">Nome Completo</label>
+        <input id="fullName" type="text" pInputText [(ngModel)]="fullName" />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" pInputText [(ngModel)]="username" />
+      </div>
+
+      <!-- Senha -->
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input id="password" type="password" pInputText [(ngModel)]="password" />
+      </div>
+
+      <!-- Confirmar Senha -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Senha</label>
+        <input id="confirmPassword" type="password" pInputText [(ngModel)]="confirmPassword" />
+      </div>
+
+      <div class="link-senha link">
+        <a (click)="onNavigateToLogin()">Já tem uma conta? Faça login</a>
+      </div>
+    </div>
+
+    <button (click)="onRegister()">Criar Conta</button>
+  </div>
+</div>

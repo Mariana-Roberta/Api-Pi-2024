@@ -1,0 +1,122 @@
+/* Definindo a fonte para todo o site */
+* {
+  font-family: "Spectral", sans-serif;
+}
+
+/* Container principal do formulário de registro */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  height: 100vh;
+  background-color: var(--primary-color);
+  padding: 40px;
+}
+
+/* Contêiner do formulário */
+.form-container {
+  width: 800px;
+  height: 600px; /* Aumentado para dar mais espaço para o novo campo de "Confirmar Senha" */
+  background-color: #F5EFEB;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Título do formulário */
+h2 {
+  text-align: center;
+  font-size: 28px;
+  font-family: "Karla", sans-serif;
+  font-weight: 500;
+  margin-bottom: 20px; /* Adicionado para dar mais espaçamento */
+}
+
+/* Estilo dos campos de input */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  height: 40px;
+  padding: 0 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Botão de registrar */
+button {
+  height: 60px;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  color: #F5EFEB;
+  font-family: "Karla", sans-serif;
+  margin: 20px 0;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #2e638f;
+}
+
+/* Link para navegação */
+.link-senha {
+  margin: 20px 10px;
+  text-align: end;
+}
+
+.link-senha a {
+  color: var(--primary-color);
+}
+
+.link-senha a:hover {
+  cursor: pointer;
+  color: #007AD9FF;
+}
+
+/* Divisor entre o formulário e o link de login */
+.divider {
+  width: 400px;
+  height: .5px;
+  background-color: #F5EFEB;
+  margin: 30px 0;
+}
+
+/* Estilo do link para "Criar Conta" */
+.criar-conta {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.link-conta, p {
+  color: #F5EFEB;
+  margin: 20px 10px;
+}
+
+.link-conta {
+  color: #329fe8;
+}
+
+.link-conta:hover {
+  cursor: pointer;
+  color: #007AD9FF;
+}
+
+/* Adicionando um pouco de espaçamento para os links de navegação */
+.link-conta {
+  margin-top: 10px;
+}

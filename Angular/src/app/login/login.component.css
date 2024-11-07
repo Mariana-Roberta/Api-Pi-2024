@@ -1,0 +1,94 @@
+* {
+  font-family: "Spectral", sans-serif;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--primary-color);
+}
+
+.form-container {
+  width: 400px;
+  height: 500px;
+  background-color: #F5EFEB;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+h2 {
+  text-align: center;
+  font-size: 28px;
+  font-family: "Karla", sans-serif;
+  font-weight: 500;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+button {
+  height: 60px;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  color: #F5EFEB;
+  font-family: "Karla", sans-serif;
+  margin: 20px 0;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #2e638f;
+}
+
+.link-senha {
+  margin: 20px 10px;
+  text-align: end;
+}
+
+.link-senha a {
+  color: var(--primary-color);
+}
+
+.link-senha a:hover {
+  cursor: pointer;
+  color: #007AD9FF;
+}
+
+.divider {
+  width: 400px;
+  height: .5px;
+  background-color: #F5EFEB;
+  margin: 30px 0;
+}
+
+.criar-conta {
+  display: flex;
+  flex-direction: row;
+}
+
+.link-conta, p {
+  color: #F5EFEB;
+  margin: 20px 10px;
+}
+
+.link-conta {
+  color: #329fe8;
+}
+
+.link-conta:hover {
+  cursor: pointer;
+  color: #007AD9FF;
+}
