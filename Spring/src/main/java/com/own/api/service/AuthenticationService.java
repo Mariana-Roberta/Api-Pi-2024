@@ -26,6 +26,7 @@ public class AuthenticationService {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
+            System.out.println(auth.getPrincipal());
 
             // Gera o token JWT e o retorna
             return jwtService.generateToken(auth);

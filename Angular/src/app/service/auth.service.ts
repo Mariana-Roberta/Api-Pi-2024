@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpHandler, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import {jwtDecode} from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService {
     });
   }
 
-  private setToken(token: string): void {
+  // Armazena o token no localStorage e retorna o sub
+  setToken(token: string): void {
     localStorage.setItem('auth_token', token);
   }
 
@@ -28,6 +30,21 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  isAdmin(): boolean {
+    return this.getUserRole() === 'ROLE_ROLE_ADMIN';
+  }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      const roles = decodedToken.roles;
+      console.log(roles);
+      return roles && roles.includes('ROLE_ROLE_ADMIN') ? 'ROLE_ROLE_ADMIN' : 'ROLE_ROLE_USER';
+    }
+    return null;
   }
 
   logout(): void {

@@ -32,10 +32,14 @@ export class LoginComponent {
 
   onLogin(): void {
     this._authService.login(this.username, this.password).subscribe(
-      (response) => {
-        // Se o login for bem-sucedido, redireciona o usuário para a página principal
-        console.log("login feito");
-        this._router.navigate(['/register']);
+      (token) => {
+        this._authService.setToken(token);
+
+        if (this._authService.isAdmin()) {
+          this._router.navigate(['/register']);
+        } else {
+          this._router.navigate(['/home']); // Ou outra rota para usuários comuns
+        }
       },
       (error) => {
         // Manipule o erro de login (ex.: credenciais incorretas)
