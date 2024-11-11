@@ -1,0 +1,110 @@
+.map-section {
+    padding: 20px;
+}
+
+.map {
+    width: 500px;
+    height: 600px;
+    background-color: var(--text-color);
+    border-radius: 10px;
+}
+
+.pedidos-section {
+    padding: 20px;
+}
+.pedidos-container {
+    width: 800px;
+    height: 600px;
+    border: 2px solid #2F4156;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Personalizar a barra de rolagem */
+.pedidos-container::-webkit-scrollbar {
+    width: 12px;  /* Largura da barra de rolagem */
+}
+
+/* Estilo da trilha da rolagem (a parte por onde a barra de rolagem se move) */
+.pedidos-container::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* Cor de fundo da trilha */
+    border-radius: 10px;
+}
+
+/* Estilo do polegar da rolagem (a parte que o usuário move) */
+.pedidos-container::-webkit-scrollbar-thumb {
+    background: #2F4156;  /* Cor do polegar da rolagem */
+    border-radius: 10px;
+}
+
+/* Efeito quando o polegar da rolagem está sendo movido */
+.pedidos-container::-webkit-scrollbar-thumb:hover {
+    background: #3c4a62;  /* Cor quando o polegar é hover */
+}
+
+.pedido {
+    width: auto;
+    height: 140px;
+    border: 2px solid #2F4156;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.pedido h4, .pedido p, .pedido .btn-detalhes{
+    margin: 10px;
+}
+
+.pedido p{
+    font-size: 14px;
+}
+
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.btn-detalhes {
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 7px;
+    background-color: #2e638f;
+    color: #F5EFEB;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-detalhes:hover {
+    cursor: pointer;
+    background-color: #2F4156;
+}
+
+.btn-calculo {
+    margin: 20px 0;
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#btn-calculo {
+    width: 180px;
+    height: 60px;
+    border: none;
+    border-radius: 7px;
+    background-color: #2F4156;
+    color: #F5EFEB;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+#btn-calculo:hover {
+    cursor: pointer;
+    background-color: #2e638f;
+}

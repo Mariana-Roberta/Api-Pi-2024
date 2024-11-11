@@ -5,11 +5,18 @@
   left: 0; /* Aligns the sidebar to the left */
   height: 100%;
   width: 300px;
-  background-color: var(--primary-color);
-  display: flex;
-  flex-direction: column;
   z-index: 1000; /* Keeps the sidebar above other elements */
   transform: translateX(0);
+  padding: 20px;
+}
+
+.sidebar {
+  height: 100%;
+  width: auto;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-header {

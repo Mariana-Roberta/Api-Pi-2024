@@ -5,10 +5,12 @@ import {HeaderComponent} from "./page-elements/header/header.component";
 import {RegisterComponent} from "./register/register.component";
 import {authGuard} from "./guard/auth.guard";
 import {adminGuard} from "./guard/admin.guard";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent, canActivate: [adminGuard]},
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'sidebar', component: SidebarComponent },
   { path: 'header', component: HeaderComponent }
 ];
