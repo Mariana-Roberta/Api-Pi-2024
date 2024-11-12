@@ -2,11 +2,19 @@
     padding: 20px;
 }
 
-.map {
-    width: 500px;
-    height: 600px;
-    background-color: var(--text-color);
-    border-radius: 10px;
+.map-container {
+    width: 600px;
+    height: 800px;
+    margin: 20px;
+}
+
+.map-frame {
+    border: 2px solid black;
+    height: 100%;
+}
+
+#map {
+    height: 100%;
 }
 
 .pedidos-section {

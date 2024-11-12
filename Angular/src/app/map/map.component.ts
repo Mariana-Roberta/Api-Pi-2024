@@ -1,4 +1,6 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
+
+declare let L: any; // Declaração para usar L como global
 
 @Component({
   selector: 'app-map',
@@ -9,37 +11,32 @@ import { Component, AfterViewInit } from '@angular/core';
 export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
-    if (typeof window !== 'undefined') {
-      // Importar Leaflet e Routing Machine dinamicamente no lado do cliente
-      import('leaflet').then(L => {
-        import('leaflet-routing-machine').then(() => {
-          this.loadMap(L);
-        });
-      });
-    }
+    this.loadMap();
   }
 
-  loadMap(L: any): void {
+  loadMap(): void {
     const map = L.map('map').setView([51.505, -0.09], 13);
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.Marker.prototype.options.icon = L.icon({
+      iconUrl: '../assets/location.png',
+      iconSize: [32, 32],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
     // Adicionar uma rota usando leaflet-routing-machine
-    if (L.Routing) {
-      // Configurar a rota
-      const control = L.Routing.control({
-        waypoints: [
-          L.latLng(51.505, -0.09),
-          L.latLng(51.515, -0.1)
-        ],
-        routeWhileDragging: true
-      }).addTo(map);
-    } else {
-      console.error("Leaflet Routing Machine não foi carregado corretamente.");
-    }
+    L.Routing.control({
+      waypoints: [
+        L.latLng(51.505, -0.09),
+        L.latLng(51.515, -0.1),
+        L.latLng(51.515, -0.14)
+      ],
+      routeWhileDragging: true
+    }).addTo(map);
 
   }
 }
-

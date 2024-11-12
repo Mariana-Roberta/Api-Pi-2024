@@ -4,7 +4,7 @@ import {
   PrimeTemplate,
   SharedModule,
   UniqueComponentId
-} from "./chunk-IUTQA6DF.js";
+} from "./chunk-WHZ554XB.js";
 import {
   DOCUMENT,
   NgClass,
@@ -12,7 +12,7 @@ import {
   NgStyle,
   NgTemplateOutlet,
   isPlatformBrowser
-} from "./chunk-OYLYEKVL.js";
+} from "./chunk-6NPOATED.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -66,8 +66,8 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-GCN4QPGA.js";
-import "./chunk-X6JV76XL.js";
+} from "./chunk-6PQPKZMH.js";
+import "./chunk-J4B6MK7R.js";
 
 // node_modules/primeng/fesm2022/primeng-dom.mjs
 var DomHandler = class _DomHandler {
