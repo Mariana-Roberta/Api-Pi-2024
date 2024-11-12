@@ -15,7 +15,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   loadMap(): void {
-    const map = L.map('map').setView([51.505, -0.09], 13);
+    const map = L.map('map').setView([-16.7476161, -49.2466723], 15);
 
     L.Marker.prototype.options.icon = L.icon({
       iconUrl: '../assets/location.png',
@@ -28,12 +28,16 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
+    const marker = L.marker([-16.7476161, -49.2466723], { icon: L.Marker.prototype.options.icon }).addTo(map);
+
+    marker.bindPopup('<b>Meu marcador!</b><br>Este é um marcador com ícone personalizado.').openPopup(); // possível colocar com o endereço por extenso
+
     // Adicionar uma rota usando leaflet-routing-machine
     L.Routing.control({
       waypoints: [
-        L.latLng(51.505, -0.09),
-        L.latLng(51.515, -0.1),
-        L.latLng(51.515, -0.14)
+        L.latLng(-16.7476161, -49.2466723),
+        L.latLng(-16.7476161, -49.5),
+        L.latLng(-16.7476161, -49.1)
       ],
       routeWhileDragging: true
     }).addTo(map);

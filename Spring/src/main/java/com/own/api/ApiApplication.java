@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class ApiApplication {
@@ -17,5 +18,10 @@ public class ApiApplication {
 	@Bean
 	ApplicationRunner runner(PasswordEncoder passwordEncoder) {
 		return args -> System.out.println(passwordEncoder.encode("password"));
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }

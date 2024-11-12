@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) // Usa a nova abordagem para desativar frameOptions
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll() // Permite acesso ao console do H2
+                        .requestMatchers("/geocode/**").permitAll() // Permite acesso ao console do H2
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "users").permitAll()
                         .anyRequest().authenticated())

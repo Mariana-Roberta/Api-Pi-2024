@@ -7,6 +7,7 @@ import {authGuard} from "./guard/auth.guard";
 import {adminGuard} from "./guard/admin.guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MapComponent} from "./map/map.component";
+import {GeoComponent} from "./geo/geo.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,5 +15,6 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'sidebar', component: SidebarComponent },
   { path: 'header', component: HeaderComponent },
-  { path: 'map', component: MapComponent }
+  { path: 'map', component: MapComponent },
+  { path: 'geo', component: GeoComponent }
 ];

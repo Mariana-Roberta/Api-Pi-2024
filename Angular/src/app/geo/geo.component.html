@@ -1,0 +1,12 @@
+<div>
+    <input type="text" [(ngModel)]="zipCode" placeholder="Digite o CEP">
+    <button (click)="searchCoordinates(zipCode)">Buscar Coordenadas</button>
+</div>
+
+<div *ngIf="coordinates">
+    <p>Latitude: {{ coordinates.lat }}</p>
+    <p>Longitude: {{ coordinates.lon }}</p>
+</div>
+<div *ngIf="!coordinates">
+    <p>Coordenadas não encontradas.</p>
+</div>
