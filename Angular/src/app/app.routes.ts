@@ -8,6 +8,7 @@ import {adminGuard} from "./guard/admin.guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MapComponent} from "./map/map.component";
 import {GeoComponent} from "./geo/geo.component";
+import {TestingComponent} from "./testing/testing.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'sidebar', component: SidebarComponent },
   { path: 'header', component: HeaderComponent },
   { path: 'map', component: MapComponent },
-  { path: 'geo', component: GeoComponent }
+  { path: 'geo', component: GeoComponent },
+  { path: 'test', component: TestingComponent }
 ];
