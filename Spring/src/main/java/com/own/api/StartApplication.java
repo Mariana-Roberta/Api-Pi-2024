@@ -2,6 +2,7 @@ package com.own.api;
 
 import com.own.api.model.User;
 import com.own.api.repository.UserRepository;
+import com.own.api.service.OpenRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,11 +15,19 @@ import java.util.Optional;
 public class StartApplication implements CommandLineRunner {
 
     @Autowired
+    private OpenRouteService openRouteService;
+
+    @Autowired
     private UserRepository repository;
 
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+
+        // Chama o teste
+        System.out.println("Executando teste do OpenRouteService...");
+        openRouteService.testRoute();
+
         // Criação do usuário admin
         createUserIfNotExists("admin", "123", "ROLE_ADMIN");
 

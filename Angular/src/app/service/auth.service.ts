@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return this.getUserRole() === 'ROLE_ROLE_ADMIN';
+    return this.getUserRole() === 'ROLE_ADMIN';
   }
 
   getUserRole(): string | null {
@@ -42,7 +42,7 @@ export class AuthService {
       const decodedToken: any = jwtDecode(token);
       const roles = decodedToken.roles;
       console.log(roles);
-      return roles && roles.includes('ROLE_ROLE_ADMIN') ? 'ROLE_ROLE_ADMIN' : 'ROLE_ROLE_USER';
+      return roles && roles.includes('ROLE_ADMIN') ? 'ROLE_ADMIN' : 'ROLE_USER';
     }
     return null;
   }
