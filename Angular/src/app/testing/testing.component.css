@@ -54,7 +54,7 @@ button {
 
 .task-manager {
     display: flex;
-    justify-content: space-between;
+    justify-content: normal;
     width: 100%;
     max-width: 100%;
     height: 100vh;
@@ -65,11 +65,20 @@ button {
     overflow: hidden;
 }
 
+.main-entregas {
+    height: 100vh;
+    max-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .left-bar {
     width: 230px;
     border-right: 1px solid #e3e7f7;
     position: relative;
-    background-color: #e6faea;
+    background-color: #faf6f2;
 }
 
 .left-content {
@@ -87,11 +96,12 @@ button {
     margin-bottom: 14px;
     font-weight: 500;
     border-radius: 6px;
+    padding: 10px;
 }
 
 .item:hover {
     cursor: pointer;
-    padding: 10px;
+    /*padding: 10px;*/
     background-color: #84c86c;
 }
 
@@ -189,7 +199,7 @@ button {
     height: 60px;
     font-size: 18px;
     border-radius: 12px;
-    background-color: #009e90;
+    background-color: #324054;
     color: #F5EFEB;
 }
 
@@ -408,4 +418,131 @@ button {
 .btn-entregue:disabled {
     background-color: #9bc8c5;
     color: #689592;
+}
+
+
+.main-clientes {
+    height: 100vh;
+    max-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow-y: auto;
+}
+
+/* Contêiner principal do formulário */
+.form-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    margin-left: 15%;
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.p-col-12.p-md-6 p {
+    margin-bottom: 40px;
+    color: #2d9c07;
+}
+
+.obrigatorio {
+    color: #2d9c07;
+}
+
+.p-field {
+    margin: 20px 0;
+    color: #777;
+}
+
+label {
+    font-size: 16px;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Estilo dos campos do formulário */
+.form-field {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estilo para o botão de envio */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn:active {
+    background-color: #004085;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    .submit-btn {
+        font-size: 16px;
+    }
+}
+
+.botao-area-cadastro {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.lista {
+    padding: 20px;
+}
+
+.perfil-usuario {
+    padding: 20px;
+}
+
+.link-voltar:hover {
+    cursor: pointer;
+    color: #2d9c07;
 }

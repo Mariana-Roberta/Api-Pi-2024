@@ -1,25 +1,51 @@
 import {Component, OnInit} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {MapComponent} from "../map/map.component";
+import {FormsModule} from "@angular/forms";
+import {InputTextModule} from "primeng/inputtext";
+import {ButtonDirective} from "primeng/button";
+import {TableModule} from "primeng/table";
 
 @Component({
   selector: 'app-testing',
   standalone: true,
   imports: [
     NgIf,
-    MapComponent
+    MapComponent,
+    FormsModule,
+    InputTextModule,
+    ButtonDirective,
+    TableModule
   ],
   templateUrl: './testing.component.html',
   styleUrl: './testing.component.css'
 })
 export class TestingComponent implements OnInit{
 
+  entregasVisible: boolean = true;
+  clientesVisible: boolean = false;
+  cadastroClientesVisible: boolean = false;
+
   mapVisible: boolean = true;
   rotasVisible: boolean = false;
+
+  products = [
+    { name: 'Apple', category: 'Fruit', price: 1.2 },
+    { name: 'Carrot', category: 'Vegetable', price: 0.9 },
+    { name: 'Chicken', category: 'Meat', price: 5.5 },
+    { name: 'Milk', category: 'Dairy', price: 2.0 },
+    { name: 'Orange', category: 'Fruit', price: 1.5 },
+    { name: 'Cheese', category: 'Dairy', price: 4.3 },
+    { name: 'Steak', category: 'Meat', price: 12.5 },
+    { name: 'Broccoli', category: 'Vegetable', price: 1.1 }
+  ];
 
   ngOnInit(): void {
     this.mapVisible = true;
     this.rotasVisible = false;
+    this.entregasVisible = true;
+    this.clientesVisible = false;
+    this.cadastroClientesVisible = false;
   }
 
   toggleView(selectedOption: string) {
@@ -27,4 +53,40 @@ export class TestingComponent implements OnInit{
     this.rotasVisible = selectedOption === 'opt-2';
   }
 
+  toggleMain(entregas: boolean, clientes: boolean, cadastro: boolean) {
+    this.entregasVisible = entregas;
+    this.clientesVisible = clientes;
+    this.cadastroClientesVisible = cadastro;
+    console.log("OIIIIIIII")
+    console.log(this.entregasVisible)
+    console.log(this.clientesVisible)
+    console.log(this.cadastroClientesVisible)
+  }
+
+  usuario = {
+    nome: '',
+    email: '',
+    telefone: '',
+    endereco: {
+      cep: '',
+      rua: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: ''
+    }
+  };
+
+  onSubmit() {
+    this.toggleMain(false, true, false);
+    console.log('Usuário cadastrado:', this.usuario);
+  }
+
+  abrirDetalhesDoUsuario() {
+
+  }
+
+  realizarPedidoDoUsuario() {
+
+  }
 }
