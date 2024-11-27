@@ -80,15 +80,20 @@ export class TestingComponent implements OnInit{
     //this.toggleMain(false, true, false);
     this.clienteService.addCliente(this.cliente).subscribe({
       next: (response) => {
-        console.log('Cliente cadastrado com sucesso:', response);
-        alert('Cliente cadastrado com sucesso!');
+        if (response) {
+          console.log('Cliente cadastrado com sucesso:', response);
+          alert('Cliente cadastrado com sucesso!');
+        } else {
+          throw new Error('Resposta vazia do servidor');
+        }
       },
       error: (err) => {
         console.error('Erro ao cadastrar cliente:', err);
+        console.log(err);
         alert('Erro ao cadastrar cliente.');
       }
     });
-    console.log('Usuário cadastrado:', this.cliente);
+    //console.log('Usuário cadastrado:', this.cliente);
   }
 
   abrirDetalhesDoUsuario() {

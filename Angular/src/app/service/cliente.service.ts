@@ -21,8 +21,11 @@ export class ClienteService {
   }
 
   addCliente(cliente: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`${this.apiUrl}/cliente/save`, cliente, { headers });
+    /*const token = JSON.parse(localStorage.getItem('token') || '');
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + token
+    });*/
+    return this.http.post<any>(`${this.apiUrl}/cliente/save`, cliente/*, { headers }*/);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

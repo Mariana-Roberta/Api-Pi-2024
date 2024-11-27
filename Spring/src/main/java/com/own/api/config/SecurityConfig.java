@@ -52,7 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/geocode/**").permitAll() // Permite acesso ao console do H2
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "users").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/cliente").permitAll()
+                        .requestMatchers("/cliente/save").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()));
