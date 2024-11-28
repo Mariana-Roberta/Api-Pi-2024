@@ -546,3 +546,16 @@ input:focus {
     cursor: pointer;
     color: #2d9c07;
 }
+
+.map-container-2 {
+    height: 400px;
+}
+
+.map-frame-2 {
+    border: 2px solid black;
+    height: 100%;
+}
+
+#map-2 {
+    height: 100%;
+}

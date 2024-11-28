@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {ButtonDirective} from "primeng/button";
 import {TableModule} from "primeng/table";
+import {MapMarkerComponent} from "../map-marker/map-marker.component";
 
 @Component({
   selector: 'app-testing',
@@ -16,7 +17,8 @@ import {TableModule} from "primeng/table";
     FormsModule,
     InputTextModule,
     ButtonDirective,
-    TableModule
+    TableModule,
+    MapMarkerComponent
   ],
   templateUrl: './testing.component.html',
   styleUrl: './testing.component.css'

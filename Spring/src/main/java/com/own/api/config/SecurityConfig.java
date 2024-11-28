@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "users").permitAll()
                         .requestMatchers("/cliente/save").permitAll()
+                        .requestMatchers("/getAddressByLatLon/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()));
