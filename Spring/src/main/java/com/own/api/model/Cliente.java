@@ -35,18 +35,20 @@ public class Cliente {
 
     private String bairro;
 
-    private String coordenadas;
+    private double lat;
+
+    private double lng;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(id, cliente.id) && Objects.equals(nome, cliente.nome) && Objects.equals(email, cliente.email) && Objects.equals(telefone, cliente.telefone) && Objects.equals(cep, cliente.cep) && Objects.equals(logradouro, cliente.logradouro) && Objects.equals(numero, cliente.numero) && Objects.equals(bairro, cliente.bairro) && Objects.equals(coordenadas, cliente.coordenadas);
+        return Objects.equals(id, cliente.id) && Objects.equals(nome, cliente.nome) && Objects.equals(email, cliente.email) && Objects.equals(telefone, cliente.telefone) && Objects.equals(cep, cliente.cep) && Objects.equals(logradouro, cliente.logradouro) && Objects.equals(numero, cliente.numero) && Objects.equals(bairro, cliente.bairro) && Objects.equals(lat, cliente.lat) && Objects.equals(lng, cliente.lng);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, email, telefone, cep, logradouro, numero, bairro, coordenadas);
+        return Objects.hash(id, nome, email, telefone, cep, logradouro, numero, bairro, lat, lng);
     }
 
     @Override
@@ -60,7 +62,8 @@ public class Cliente {
                 ", logradouro='" + logradouro + '\'' +
                 ", numero='" + numero + '\'' +
                 ", bairro='" + bairro + '\'' +
-                ", coordenadas='" + coordenadas + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lng='" + lng + '\'' +
                 '}';
     }
 }

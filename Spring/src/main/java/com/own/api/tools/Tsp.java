@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Tsp {
     // Função recursiva para calcular o custo mínimo
-    static int totalCost(int mask, int pos, int n, int[][] cost, int[][] dp, int[][] path) {
+    static double totalCost(int mask, int pos, int n, double[][] cost, double[][] dp, int[][] path) {
         // Caso base: se todas as cidades foram visitadas, retorna o custo para voltar à cidade inicial
         if (mask == (1 << n) - 1) {
             return cost[pos][0];
@@ -15,13 +15,13 @@ public class Tsp {
             return dp[mask][pos];
         }
 
-        int ans = Integer.MAX_VALUE;
+        double ans = Double.MAX_VALUE;
 
         // Tentar visitar todas as cidades não visitadas
         for (int i = 0; i < n; i++) {
             if ((mask & (1 << i)) == 0) {
                 // Se a cidade i não foi visitada, visite-a e atualize o mask
-                int newCost = cost[pos][i] + totalCost(mask | (1 << i), i, n, cost, dp, path);
+                double newCost = cost[pos][i] + totalCost(mask | (1 << i), i, n, cost, dp, path);
 
                 // Atualiza o menor custo e armazena o caminho
                 if (newCost < ans) {
@@ -38,15 +38,15 @@ public class Tsp {
     }
 
     // Função que inicia a recursão e retorna a melhor rota
-    static int[] tsp(int[][] cost) {
+    public static int[] tsp(double[][] cost) {
         int n = cost.length;
 
         // Inicializando o DP com -1, indicando que os subproblemas não foram resolvidos
-        int[][] dp = new int[1 << n][n];
+        double[][] dp = new double[1 << n][n];
         int[][] path = new int[1 << n][n];  // Para armazenar o caminho
 
         // Inicializa o dp com -1
-        for (int[] row : dp) {
+        for (double[] row : dp) {
             Arrays.fill(row, -1);
         }
 
@@ -68,8 +68,8 @@ public class Tsp {
     }
 
     // Função para calcular o custo total de uma rota
-    static int calculateTotalDistance(int[] route, int[][] cost) {
-        int totalDistance = 0;
+    static double calculateTotalDistance(int[] route, double[][] cost) {
+        double totalDistance = 0;
         for (int i = 0; i < route.length - 1; i++) {
             totalDistance += cost[route[i]][route[i + 1]];
         }

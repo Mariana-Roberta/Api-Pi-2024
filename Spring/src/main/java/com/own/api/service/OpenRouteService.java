@@ -11,7 +11,7 @@ public class OpenRouteService {
     private static final String ORS_URL = "https://api.openrouteservice.org/v2/directions/driving-car";
     private static final String API_KEY = "5b3ce3597851110001cf62481a809977a4254c9ea52da021c457b484";
 
-    public String getRoute(List<List<Double>> coordinates) {
+    public Map getRoute(List<List<Double>> coordinates) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -19,18 +19,25 @@ public class OpenRouteService {
         headers.set("Authorization", API_KEY);
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("coordinates", coordinates);
+        requestBody.put("locations", coordinates);
+        requestBody.put("metrics", Arrays.asList("distance", "duration"));
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<Map> response = restTemplate.exchange(
                 ORS_URL,
                 HttpMethod.POST,
                 request,
-                String.class
+                Map.class
         );
 
-        return response.getBody();
+        // Retorna a matriz de distâncias e durações
+        Map<String, Object> responseBody = response.getBody();
+        Map<String, double[][]> result = new HashMap<>();
+        result.put("distances", (double[][]) responseBody.get("distances"));
+        result.put("durations", (double[][]) responseBody.get("durations"));
+
+        return result;
     }
 
     // Mini-teste
@@ -41,7 +48,7 @@ public class OpenRouteService {
         coordinates.add(Arrays.asList(8.687872, 49.420318)); // Ponto final
 
         // Chama o método e imprime o resultado
-        String result = getRoute(coordinates);
+        Map result = getRoute(coordinates);
         System.out.println("Resultado da rota: \n" + result);
     }
 }
