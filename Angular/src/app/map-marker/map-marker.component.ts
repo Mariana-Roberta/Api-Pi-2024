@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import {GeoService} from "../service/geocoding.service"; // Importe o serviço
+import {GeoService} from "../service/geocoding.service";
+import {LocationService} from "../service/location.service"; // Importe o serviço
 
 declare let L: any; // Declaração para usar L como global
 
@@ -13,7 +14,7 @@ export class MapMarkerComponent implements AfterViewInit {
 
   private currentMarker: any = null; // Variável para armazenar o marcador atual
 
-  constructor(private geocodingService: GeoService) {}
+  constructor(private geocodingService: GeoService, private locationService: LocationService) {}
 
   ngAfterViewInit(): void {
     this.loadMap();
@@ -37,7 +38,8 @@ export class MapMarkerComponent implements AfterViewInit {
     map.on('click', (e: any) => {
       const lat = e.latlng.lat;  // Latitude
       const lng = e.latlng.lng;  // Longitude
-
+      // Atualizar a localização no serviço
+      this.locationService.setLocation(lat, lng);
       // Se já existir um marcador, removê-lo
       if (this.currentMarker) {
         map.removeLayer(this.currentMarker); // Remove o marcador anterior

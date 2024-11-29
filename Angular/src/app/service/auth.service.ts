@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent, HttpHandler, HttpRequest} from '@angular/common/h
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {jwtDecode} from "jwt-decode";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import {jwtDecode} from "jwt-decode";
 export class AuthService {
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private _router: Router) {}
 
   login(username: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/authenticate`, { username, password }, {
@@ -49,6 +50,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('auth_token');
+    this._router.navigate(['/login']);
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

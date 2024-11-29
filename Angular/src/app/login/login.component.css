@@ -1,5 +1,8 @@
 * {
-  font-family: "Spectral", sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+  color: #06260b;
 }
 
 .login-container {
@@ -8,19 +11,19 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--primary-color);
+  background: radial-gradient(circle, #81a624, #9ac334);
 }
 
 .form-container {
   width: 400px;
   height: 500px;
-  background-color: #F5EFEB;
-  padding: 20px;
-  border-radius: 20px;
+  background-color: #fafcf0;
+  padding: 30px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  border: 2px solid #06260b;
 }
 
 h2 {
@@ -39,18 +42,17 @@ h2 {
 
 button {
   height: 60px;
-  background-color: var(--primary-color);
+  background-color: #9ac334;
   border: none;
-  border-radius: 12px;
+  border-radius: 4px;
   font-size: 18px;
-  color: #F5EFEB;
   font-family: "Karla", sans-serif;
   margin: 20px 0;
 }
 
 button:hover {
   cursor: pointer;
-  background-color: #2e638f;
+  background-color: #81a624;
 }
 
 .link-senha {
@@ -59,12 +61,12 @@ button:hover {
 }
 
 .link-senha a {
-  color: var(--primary-color);
+  color: #06260b;
 }
 
 .link-senha a:hover {
   cursor: pointer;
-  color: #007AD9FF;
+  color: #81a624;
 }
 
 .divider {

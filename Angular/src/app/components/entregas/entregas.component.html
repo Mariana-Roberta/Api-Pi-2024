@@ -1,0 +1,90 @@
+
+<div class="container">
+    <app-left-bar/>
+    <div class="main-entregas">
+        <div class="page-content">
+            <div class="header">Entregas Do Dia</div>
+            <div class="content-categories">
+                <div class="label-wrapper">
+                    <input class="nav-item" name="nav" type="radio" id="opt-1" checked (change)="toggleView('opt-1')">
+                    <label class="category" for="opt-1">Mapa</label>
+                </div>
+                <div class="label-wrapper">
+                    <input class="nav-item" name="nav" type="radio" id="opt-2" (change)="toggleView('opt-2')">
+                    <label class="category" for="opt-2">Rotas</label>
+                </div>
+            </div>
+            <div class="tasks-wrapper">
+                <div class="task-map" *ngIf="mapVisible" style="width: 100%; height: 600px">
+                    <div class="map-container">
+                        <div class="map-frame">
+                            <div id="map"><app-map></app-map></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-enderecos"  *ngIf="rotasVisible">
+                    <div class="card-endereco endereco">
+                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000</h4>
+                    </div>
+                    <div class="card-endereco endereco">
+                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000</h4>
+                    </div>
+                    <div class="card-endereco endereco">
+                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000</h4>
+                    </div>
+                    <div class="card-endereco endereco">
+                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-bar">
+            <div class="header" style="margin-top: 40px">Pedidos</div>
+            <div class="right-content">
+                <div class="task-box">
+                    <div class="description-task">
+                        <div class="time">Nome Do Cliente</div>
+                        <div class="task-name">
+                            Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000
+                        </div>
+                    </div>
+                </div>
+                <div class="task-box">
+                    <div class="description-task">
+                        <div class="time">Nome Do Cliente</div>
+                        <div class="task-name">
+                            Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000
+                        </div>
+                    </div>
+                </div>
+                <div class="task-box">
+                    <div class="description-task">
+                        <div class="time">Nome Do Cliente</div>
+                        <div class="task-name">
+                            Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000
+                        </div>
+                    </div>
+                </div>
+                <div class="task-box">
+                    <div class="description-task">
+                        <div class="time">Nome Do Cliente</div>
+                        <div class="task-name">
+                            Endereço: Av. C-4, <br/>
+                            CEP: 74.900-000
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-bar">
+                <button class="btn-calcular">Calcular Rota</button>
+            </div>
+        </div>
+    </div>
+</div>
