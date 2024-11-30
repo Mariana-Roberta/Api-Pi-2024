@@ -68,11 +68,14 @@ public class Tsp {
     }
 
     // Função para calcular o custo total de uma rota
-    static double calculateTotalDistance(int[] route, double[][] cost) {
+    public static double calculateTotalDistance(int[] route, double[][] cost) {
         double totalDistance = 0;
         for (int i = 0; i < route.length - 1; i++) {
             totalDistance += cost[route[i]][route[i + 1]];
         }
+        System.out.println("Distância total: " + totalDistance);
         return totalDistance;
     }
+
+    
 }

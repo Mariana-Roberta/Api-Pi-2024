@@ -68,7 +68,17 @@ export class ClientesListaComponent implements OnInit {
       }
 
     confirmarPedidos() {
-
+        // Lista de clientes com coordenadas lat e lng
+        this._clienteService.enviarListaDePedidos(this.listaDePedidos).subscribe({
+        next: (response) => {
+            console.log('Lista de pedidos e coordenadas enviada com sucesso:', response);
+            // Aqui você pode processar a resposta do backend, como obter a lista ordenada
+        },
+        error: (err) => {
+            console.error('Erro ao enviar lista de pedidos:', err);
+            alert('Erro ao enviar lista de pedidos.');
+        }
+    });
     }
 
 }

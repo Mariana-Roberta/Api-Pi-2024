@@ -24,10 +24,6 @@ public class StartApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // Chama o teste
-        System.out.println("Executando teste do OpenRouteService...");
-        openRouteService.testRoute();
-
         // Criação do usuário admin
         createUserIfNotExists("admin", "123", "ROLE_ADMIN");
 

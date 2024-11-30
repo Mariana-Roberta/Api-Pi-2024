@@ -28,6 +28,11 @@ export class ClienteService {
     return this.http.post<any>(`${this.apiUrl}/cliente/save`, cliente/*, { headers }*/);
   }
 
+  // Função para enviar a lista de pedidos para o backend
+  enviarListaDePedidos(listaDePedidos: any[]): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/rotas`, listaDePedidos);
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
