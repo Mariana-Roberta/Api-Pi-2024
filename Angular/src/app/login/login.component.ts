@@ -32,8 +32,8 @@ export class LoginComponent {
 
   onLogin(): void {
     this._authService.login(this.username, this.password).subscribe(
-      (token) => {
-        this._authService.setToken(token);
+      (response) => {
+        // this._authService.setToken(response.token);
 
         if (this._authService.isAdmin()) {
           this._router.navigate(['/register']);

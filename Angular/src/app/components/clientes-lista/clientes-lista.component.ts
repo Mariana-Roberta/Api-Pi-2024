@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ButtonDirective} from "primeng/button";
 import {PrimeTemplate} from "primeng/api";
 import {TableModule} from "primeng/table";
 import {LeftBarComponent} from "../../elements/left-bar/left-bar.component";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
+import { ClienteService } from '../../service/cliente.service';
 
 @Component({
   selector: 'app-clientes-lista',
@@ -19,9 +20,24 @@ import {NgIf} from "@angular/common";
   templateUrl: './clientes-lista.component.html',
   styleUrl: './clientes-lista.component.css'
 })
-export class ClientesListaComponent {
+export class ClientesListaComponent implements OnInit {
 
-    constructor(private _router: Router) {
+    clientes: any [] = [];
+
+    listaDePedidos: any [] = [];
+
+    constructor(private _router: Router, private _clienteService: ClienteService) {
+    }
+
+    ngOnInit(): void {
+        this._clienteService.getClientes().subscribe(
+            (response) => {
+              this.clientes = response;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
     }
 
     products = [
@@ -35,9 +51,12 @@ export class ClientesListaComponent {
         { name: 'Broccoli', category: 'Vegetable', price: 1.1 }
     ];
 
-    listaDePedidos: any [] = [];
 
     cadastrarClientes() {
+        this._router.navigate(['/clientes-cadastro']);
+    }
+
+    visualizarCliente(id: number) {
         this._router.navigate(['/clientes-cadastro']);
     }
 

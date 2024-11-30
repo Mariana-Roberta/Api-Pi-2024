@@ -6,14 +6,14 @@
 
             <h3>Clientes</h3>
             <div class="lista">
-                <p-table [value]="products" [paginator]="true" [rows]="10" [filterDelay]="300">
+                <p-table [value]="clientes" [paginator]="true" [rows]="10" [filterDelay]="300">
                     <ng-template pTemplate="header">
                         <tr>
                             <th pSortableColumn="name">
                                 Nome <p-sortIcon field="name"></p-sortIcon>
                             </th>
                             <th pSortableColumn="category">
-                                Endereço <p-sortIcon field="category"></p-sortIcon>
+                                Logradouro <p-sortIcon field="category"></p-sortIcon>
                             </th>
                             <th>
                                 Realizar Pedido
@@ -23,11 +23,11 @@
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template pTemplate="body" let-cliente>
                         <tr>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td><button pButton type="submit" label="Pedido" icon="pi pi-box" style="margin-left: 10px" (click)="adicionarAListaDePedidos(product)"></button></td>
+                            <td>{{ cliente.nome }}</td>
+                            <td>{{ cliente.logradouro }}</td>
+                            <td><button pButton type="submit" label="Pedido" icon="pi pi-box" style="margin-left: 10px" (click)="adicionarAListaDePedidos(cliente)"></button></td>
                             <td>
                                 <button pButton type="submit" label="Detalhes" icon="pi pi-info-circle"></button>
 

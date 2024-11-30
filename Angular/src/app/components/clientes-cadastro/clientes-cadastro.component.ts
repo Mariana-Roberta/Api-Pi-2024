@@ -38,8 +38,8 @@ export class ClientesCadastroComponent implements OnInit {
         logradouro: '',
         numero: '',
         bairro: '',
-        latitude: 0,
-        longitude: 0
+        lat: 0,
+        lng: 0
     };
 
     location: { lat: number; lng: number } | null = null;
@@ -55,7 +55,7 @@ export class ClientesCadastroComponent implements OnInit {
 
     cadastrarCliente() {
         if (this.location) {
-
+            
         }
         this.clienteService.addCliente(this.cliente).subscribe({
             next: (response) => {

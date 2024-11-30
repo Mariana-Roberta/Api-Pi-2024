@@ -15,14 +15,15 @@ import {ClientesVisualizacaoComponent} from "./components/clientes-visualizacao/
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent, canActivate: [adminGuard]},
+  { path: 'entregas', component: EntregasComponent, canActivate: [adminGuard] },
+  { path: 'clientes', component: ClientesListaComponent, canActivate: [adminGuard] },
+  { path: 'clientes-cadastro', component: ClientesCadastroComponent, canActivate: [adminGuard] },
+  { path: 'clientes-visualizacao', component: ClientesVisualizacaoComponent, canActivate: [adminGuard] },
+  
+  { path: 'left-bar', component: LeftBarComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'map', component: MapComponent },
   { path: 'geo', component: GeoComponent },
-  { path: 'entregas', component: EntregasComponent },
-  { path: 'clientes', component: ClientesListaComponent },
-  { path: 'clientes-cadastro', component: ClientesCadastroComponent },
-  { path: 'clientes-visualizacao', component: ClientesVisualizacaoComponent },
-  { path: 'left-bar', component: LeftBarComponent },
   { path: 'test', component: TestingComponent }
 ];
