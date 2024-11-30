@@ -55,7 +55,8 @@ export class ClientesCadastroComponent implements OnInit {
 
     cadastrarCliente() {
         if (this.location) {
-            
+            this.cliente.lat = this.location.lat;
+            this.cliente.lng = this.location.lng;
         }
         this.clienteService.addCliente(this.cliente).subscribe({
             next: (response) => {

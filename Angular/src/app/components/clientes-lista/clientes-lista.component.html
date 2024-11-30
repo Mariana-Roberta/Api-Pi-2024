@@ -29,9 +29,7 @@
                             <td>{{ cliente.logradouro }}</td>
                             <td><button pButton type="submit" label="Pedido" icon="pi pi-box" style="margin-left: 10px" (click)="adicionarAListaDePedidos(cliente)"></button></td>
                             <td>
-                                <button pButton type="submit" label="Detalhes" icon="pi pi-info-circle"></button>
-
-                                <button pButton type="submit" label="Excluir" icon="pi pi-trash" style="margin-left: 10px"></button>
+                                <button pButton type="submit" label="Detalhes" icon="pi pi-info-circle" (click)="visualizarCliente(cliente.id)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -47,11 +45,11 @@
                 <p-table [value]="listaDePedidos" [paginator]="true" [rows]="5" [filterDelay]="300">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th pSortableColumn="name">
-                                Nome <p-sortIcon field="name"></p-sortIcon>
+                            <th pSortableColumn="nome">
+                                Nome <p-sortIcon field="nome"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="category">
-                                Endereço <p-sortIcon field="category"></p-sortIcon>
+                            <th pSortableColumn="logradouro">
+                                Endereço <p-sortIcon field="logradouro"></p-sortIcon>
                             </th>
                             <th>
                                 Ações
@@ -61,8 +59,8 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-pedido>
                         <tr>
-                            <td>{{ pedido.name }}</td>
-                            <td>{{ pedido.category }}</td>
+                            <td>{{ pedido.nome }}</td>
+                            <td>{{ pedido.logradouro }}</td>
                             <td>
                                 <button pButton type="submit" label="Excluir" icon="pi pi-trash" (click)="removerDaListaDePedidos(pedido)"></button>
                             </td>

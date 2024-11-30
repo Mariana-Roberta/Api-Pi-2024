@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ButtonDirective} from "primeng/button";
 import {LeftBarComponent} from "../../elements/left-bar/left-bar.component";
 import {PrimeTemplate} from "primeng/api";
@@ -6,6 +6,7 @@ import {TableModule} from "primeng/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {ClienteService} from "../../service/cliente.service";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes-visualizacao',
@@ -22,7 +23,7 @@ import {ClienteService} from "../../service/cliente.service";
   templateUrl: './clientes-visualizacao.component.html',
   styleUrl: './clientes-visualizacao.component.css'
 })
-export class ClientesVisualizacaoComponent {
+export class ClientesVisualizacaoComponent implements OnInit {
     cliente = {
         nome: '',
         email: '',
@@ -30,14 +31,35 @@ export class ClientesVisualizacaoComponent {
         cep: '',
         logradouro: '',
         numero: '',
-        bairro: ''
+        bairro: '',
+        lat: 0,
+        lng: 0
     };
 
-    constructor(private clienteService: ClienteService) {
+    constructor(private clienteService: ClienteService, private route: ActivatedRoute, private _router: Router) {
     }
 
-    onSubmit() {
-        this.clienteService.addCliente(this.cliente).subscribe({ /* UPDATE DO CLIENTE */
+    ngOnInit(): void {
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+            this.clienteService.getClienteById(Number(id)).subscribe(
+                (dados) => {
+                  this.cliente = dados;
+                  console.log(this.cliente)
+                },
+                (error) => {
+                  console.error('Erro ao carregar dados do cliente', error);
+                }
+            );
+        }
+    }
+
+    voltar(){
+        this._router.navigate(['/clientes']);
+    }
+
+    /*updateCliente() {
+        this.clienteService.addCliente(this.cliente).subscribe({ // UPDATE DO CLIENTE
             next: (response) => {
                 if (response) {
                     console.log('Cliente cadastrado com sucesso:', response);
@@ -52,5 +74,5 @@ export class ClientesVisualizacaoComponent {
                 alert('Erro ao cadastrar cliente.');
             }
         });
-    }
+    }*/
 }

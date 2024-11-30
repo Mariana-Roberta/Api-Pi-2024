@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "users").permitAll()
                         .requestMatchers("/cliente/save").permitAll()
+                        .requestMatchers("/cliente/**").permitAll()
                         .requestMatchers("/getAddressByLatLon/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

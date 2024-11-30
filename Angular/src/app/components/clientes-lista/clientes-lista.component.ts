@@ -32,6 +32,7 @@ export class ClientesListaComponent implements OnInit {
     ngOnInit(): void {
         this._clienteService.getClientes().subscribe(
             (response) => {
+                console.log(response);
               this.clientes = response;
             },
             (error) => {
@@ -40,41 +41,31 @@ export class ClientesListaComponent implements OnInit {
           );
     }
 
-    products = [
-        { name: 'Apple', category: 'Fruit', price: 1.2 },
-        { name: 'Carrot', category: 'Vegetable', price: 0.9 },
-        { name: 'Chicken', category: 'Meat', price: 5.5 },
-        { name: 'Milk', category: 'Dairy', price: 2.0 },
-        { name: 'Orange', category: 'Fruit', price: 1.5 },
-        { name: 'Cheese', category: 'Dairy', price: 4.3 },
-        { name: 'Steak', category: 'Meat', price: 12.5 },
-        { name: 'Broccoli', category: 'Vegetable', price: 1.1 }
-    ];
-
-
     cadastrarClientes() {
         this._router.navigate(['/clientes-cadastro']);
     }
 
     visualizarCliente(id: number) {
-        this._router.navigate(['/clientes-cadastro']);
+        this._router.navigate(['/clientes-visualizacao', id]);
     }
 
     adicionarAListaDePedidos(cliente: any) {
-        // Verifica se o cliente já está na lista
-        const clienteExiste = this.listaDePedidos.some((pedido) => pedido.name === cliente.name);
-
+    
+        // Verifica se o cliente já está na lista pelo ID
+        const clienteExiste = this.listaDePedidos.some((pedido) => pedido.id === cliente.id);
+    
         if (!clienteExiste) {
             this.listaDePedidos = [...this.listaDePedidos, cliente]; // Cria uma nova referência do array
+            // console.log('Cliente adicionado à lista:', cliente);
         } else {
             alert('Cliente já está na lista!');
         }
     }
+    
 
-    removerDaListaDePedidos(cliente: any) {
-        // Remove o cliente filtrando a lista
-        this.listaDePedidos = this.listaDePedidos.filter((pedido) => pedido.name !== cliente.name);
-    }
+    removerDaListaDePedidos(pedido: any) {
+        this.listaDePedidos = this.listaDePedidos.filter(p => p.id !== pedido.id);
+      }
 
     confirmarPedidos() {
 

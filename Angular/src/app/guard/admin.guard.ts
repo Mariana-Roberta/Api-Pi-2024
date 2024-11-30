@@ -9,6 +9,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
 
   if (authService.getAuthStatus()) {
     if (roles.includes('ROLE_ADMIN')) {
+      authService.isAdmin = true;
       return true;
     } else {
       alert("Você não tem permissão")

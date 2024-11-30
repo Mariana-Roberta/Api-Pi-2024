@@ -25,6 +25,7 @@ public class ClienteController {
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Cliente cliente) {
+        System.out.println(cliente);
         Cliente savedCliente = clienteService.save(cliente);
         if (savedCliente != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(savedCliente); // Retorna o objeto cliente com status 201

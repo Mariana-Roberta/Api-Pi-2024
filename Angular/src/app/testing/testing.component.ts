@@ -78,7 +78,7 @@ export class TestingComponent implements OnInit{
     bairro: ''
   };
 
-  onSubmit() {
+  /*onSubmit() {
     //this.toggleMain(false, true, false);
     this.clienteService.addCliente(this.cliente).subscribe({
       next: (response) => {
@@ -96,7 +96,7 @@ export class TestingComponent implements OnInit{
       }
     });
     //console.log('Usuário cadastrado:', this.cliente);
-  }
+  }*/
 
   abrirDetalhesDoUsuario() {
 

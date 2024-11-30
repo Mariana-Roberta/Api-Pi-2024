@@ -35,10 +35,10 @@ export class LoginComponent {
       (response) => {
         // this._authService.setToken(response.token);
 
-        if (this._authService.isAdmin()) {
-          this._router.navigate(['/register']);
+        if (this._authService.getAdminStatus()) {
+          this._router.navigate(['/entregas']);
         } else {
-          this._router.navigate(['/home']); // Ou outra rota para usuários comuns
+          this._router.navigate(['/login']); // Ou outra rota para usuários comuns
         }
       },
       (error) => {

@@ -5,11 +5,11 @@
         <div class="perfil-usuario">
             <div class="p-grid p-dir-col p-align-center">
                 <div class="p-col-12 p-md-6">
-                    <a class="link-voltar"><i class="pi pi-arrow-left" style="margin-right: 10px"></i>Voltar</a>
+                    <a class="link-voltar" style="margin-bottom: 20px" (click)="voltar()">Voltar</a>
                     <h2>Dados do Usuário</h2>
                     <p>Altere os dados abaixo para salvar as novas informações do usuário</p>
                     <div class="form-container">
-                        <form (ngSubmit)="onSubmit()">
+                        <form>
                             <!-- Nome -->
                             <div class="p-field">
                                 <label >Nome</label>
@@ -56,6 +56,7 @@
                             </div>
 
                             <button pButton type="submit" label="Salvar" icon="pi pi-check"></button>
+                            <button pButton type="submit" label="Excluir" icon="pi pi-trash" severity="danger" style="margin-left: 10px; color: white;"></button>
                         </form>
                     </div>
                 </div>

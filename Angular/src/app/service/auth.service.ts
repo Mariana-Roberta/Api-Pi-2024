@@ -9,6 +9,10 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
+
+  isAutenticado: boolean = this.getAuthStatus();
+  isAdmin: boolean = this.getAdminStatus();
+
   private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient, private _router: Router) {}
@@ -21,13 +25,17 @@ export class AuthService {
   }*/
 
     login(username: string, password: string): Observable<{token: string, roles: string[]}> {
-      return this.http.post<{ token: string, roles: string[] }>(`${this.apiUrl}/user/login`, { username, password })
+      return this.http.post<{ token: string, roles: string[] }>(`${this.apiUrl}/authenticate`, { username, password })
         .pipe(
           tap(response => {
             // Armazena as informações de autenticação no localStorage
+            console.log("login: " + response);
             localStorage.setItem('token', response.token);
             localStorage.setItem('roles', JSON.stringify(response.roles));
             localStorage.setItem('authStatus', JSON.stringify(true));
+
+            const roles = JSON.parse(localStorage.getItem('roles') || '[]');
+            if (roles.includes('ROLE_ADMIN')) { this.setAdminStatus(true); }
           })
         );
     }
@@ -41,13 +49,17 @@ export class AuthService {
     return localStorage.getItem('auth_token');
   }
 
-  getAuthStatus(): string | null {
-    return localStorage.getItem('authStatus');
-    //return !!this.getToken();
+  private setAdminStatus(adminStatus: boolean): void {
+    this.isAdmin = adminStatus;
+    localStorage.setItem('adminStatus', JSON.stringify(adminStatus));
   }
 
-  isAdmin(): boolean {
-    return this.getUserRole() === 'ROLE_ADMIN';
+  getAuthStatus(): boolean {
+    return JSON.parse(localStorage.getItem('authStatus') || 'false');
+  }
+
+  getAdminStatus(): boolean {
+    return JSON.parse(localStorage.getItem('adminStatus') || 'false');
   }
 
   getUserRole(): string | null {
