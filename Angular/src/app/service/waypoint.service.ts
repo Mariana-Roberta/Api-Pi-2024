@@ -17,7 +17,6 @@ export class WaypointService {
         };
       });
   }
-
   getWaypoints() {
     return this.waypoints;
   }

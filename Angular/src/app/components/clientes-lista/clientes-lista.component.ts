@@ -30,7 +30,7 @@ export class ClientesListaComponent implements OnInit {
     constructor(private _router: Router, private _clienteService: ClienteService) {
     }
 
-    ngOnInit(): void {
+    /*ngOnInit(): void {
         this._clienteService.getClientes().subscribe(
           (response) => {
             console.log(response);
@@ -42,6 +42,21 @@ export class ClientesListaComponent implements OnInit {
             console.log(error);
           }
         );
+      }*/
+        ngOnInit(): void {
+          this._clienteService.getClientes().subscribe(
+              (response) => {
+                  // Filtra os clientes
+                  this.clienteAdmin = response.filter((cliente: any) => cliente.id == 1);
+                  this.clientes = response.filter((cliente: any) => cliente.id > 1);
+      
+                  // Adiciona os itens de clienteAdmin à listaDePedidos
+                  this.listaDePedidos.push(...this.clienteAdmin);
+              },
+              (error) => {
+                  console.log(error);
+              }
+          );
       }
       
 
@@ -71,7 +86,7 @@ export class ClientesListaComponent implements OnInit {
         this.listaDePedidos = this.listaDePedidos.filter(p => p.id !== pedido.id);
       }
 
-    confirmarPedidos() {
+    /*confirmarPedidos() {
         //this._router.navigate(['/entregas'], { queryParams: { pedidos: JSON.stringify(this.listaDePedidos) } });
         this._clienteService.enviarListaDePedidos(this.listaDePedidos).subscribe({
             next: (response) => {
@@ -82,6 +97,27 @@ export class ClientesListaComponent implements OnInit {
                 alert('Erro ao enviar lista de pedidos.');
             }
         }); 
-    }
+    }*/
+
+        confirmarPedidos() {
+          this._clienteService.enviarListaDePedidos(this.listaDePedidos).subscribe({
+              next: (response) => {
+                  // Extrair a lista de clientes reorganizada da resposta
+                  const orderedClients = response.orderedClients;
+      
+                  if (orderedClients) {
+                      console.log('Lista reorganizada recebida:', orderedClients);
+                      this.listaDePedidos = orderedClients; // Atualiza a lista de pedidos no front-end
+                      this._router.navigate(['/entregas'], { queryParams: { pedidos: JSON.stringify(orderedClients) } });
+                  } else {
+                      console.error('Resposta do backend não contém a lista reorganizada.');
+                  }
+              },
+              error: (err) => {
+                  console.error('Erro ao enviar lista de pedidos:', err);
+                  alert('Erro ao enviar lista de pedidos.');
+              }
+          });
+      }
 
 }
