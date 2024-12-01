@@ -33,8 +33,12 @@
         <div class="right-bar">
             <div class="header" style="margin-top: 40px">Pedidos</div>
             <div class="right-content">
-                <div *ngIf="listaDePedidos.length === 0"><p style="color: darkred; font-size: 14px;">Clique em 'Listar Pedidos' para calcular rota do dia</p></div>
-                <div class="task-box" *ngFor="let pedido of listaDePedidos">
+                <div *ngIf="listaDePedidos.length <= 2">
+                    <p style="color: darkred; font-size: 14px;">
+                        Clique em 'Listar Pedidos' para calcular rota do dia
+                    </p>
+                </div>
+                <div class="task-box" *ngFor="let pedido of listaDePedidos.slice(1, listaDePedidos.length - 1)">
                     <div class="description-task">
                         <div class="time">{{ pedido.nome }}</div>
                         <div class="task-name">
@@ -49,5 +53,6 @@
                 <button class="btn-calcular" (click)="listarPedidos()">Listar Pedidos</button>
             </div>
         </div>
+        
     </div>
 </div>

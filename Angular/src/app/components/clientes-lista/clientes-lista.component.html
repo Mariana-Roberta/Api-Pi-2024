@@ -41,36 +41,36 @@
             </div>
 
             <h3>Pedidos do Dia</h3>
-            <div class="lista-pedidos">
-                <p-table [value]="listaDePedidos" [paginator]="true" [rows]="5" [filterDelay]="300">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th pSortableColumn="nome">
-                                Nome <p-sortIcon field="nome"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="logradouro">
-                                Endereço <p-sortIcon field="logradouro"></p-sortIcon>
-                            </th>
-                            <th>
-                                Ações
+<div class="lista-pedidos">
+    <p-table [value]="listaDePedidos.slice(1)" [paginator]="true" [rows]="5" [filterDelay]="300">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nome">
+                    Nome <p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="logradouro">
+                    Endereço <p-sortIcon field="logradouro"></p-sortIcon>
+                </th>
+                <th>
+                    Ações
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pedido>
+            <tr>
+                <td>{{ pedido.nome }}</td>
+                <td>{{ pedido.logradouro }}</td>
+                <td>
+                    <button pButton type="button" label="Excluir" icon="pi pi-trash" (click)="removerDaListaDePedidos(pedido)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <div class="botao-confirmar-pedidos">
+        <button *ngIf="listaDePedidos.length != 0" pButton type="button" label="Confirmar Pedidos" icon="pi pi-check-circle" (click)="confirmarPedidos()"></button>
+    </div>
+</div>
 
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-pedido>
-                        <tr>
-                            <td>{{ pedido.nome }}</td>
-                            <td>{{ pedido.logradouro }}</td>
-                            <td>
-                                <button pButton type="button" label="Excluir" icon="pi pi-trash" (click)="removerDaListaDePedidos(pedido)"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-                <div class="botao-confirmar-pedidos">
-                    <button *ngIf="listaDePedidos.length != 0" pButton type="button" label="Confirmar Pedidos" icon="pi pi-check-circle" (click)="confirmarPedidos()"></button>
-                </div>
-            </div>
         </div>
     </div>
 </div>
