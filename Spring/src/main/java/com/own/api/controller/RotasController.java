@@ -2,6 +2,7 @@ package com.own.api.controller;
 
 import com.own.api.model.Cliente;
 import com.own.api.tools.Tsp;
+import com.own.api.service.ClienteService;
 import com.own.api.service.OpenRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ import java.util.Map;
 public class RotasController {
 
     private final OpenRouteService openRouteService;
+    
+    @Autowired
+    private ClienteService clienteService;
 
 
     public RotasController(OpenRouteService openRouteService) {
@@ -51,12 +55,12 @@ public class RotasController {
 
     @PostMapping
 public Map<String, Object> generateBestRoute(@RequestBody List<Cliente> clients) {
-    // Passo 1: Extrair as coordenadas (longitude, latitude) dos clientes
+   
     List<List<Double>> coordinates = new ArrayList<>();
     for (Cliente client : clients) {
         coordinates.add(Arrays.asList(client.getLng(), client.getLat()));
     }
-
+    System.out.println(coordinates);
     // Passo 2: Gerar a matriz de distâncias utilizando OpenRouteService
     Map<String, double[][]> distanceMatrix = openRouteService.getRoute(coordinates);
 
@@ -86,5 +90,25 @@ public Map<String, Object> generateBestRoute(@RequestBody List<Cliente> clients)
 
     return result;
 }
+
+@PostMapping("/directions")
+public Map<String, Object> generateDirections(@RequestBody List<Cliente> clients) {
+    // Passo 1: Extrair as coordenadas (longitude, latitude) dos clientes
+    List<List<Double>> coordinates = new ArrayList<>();
+    for (Cliente client : clients) {
+        coordinates.add(Arrays.asList(client.getLng(), client.getLat()));
+    }
+
+    // Passo 2: Gerar as direções utilizando OpenRouteService
+    List<String> directions = openRouteService.getDirections(coordinates);
+
+    // Passo 3: Retornar as instruções e a lista de clientes na ordem original
+    Map<String, Object> result = new HashMap<>();
+    result.put("clients", clients); // Mantém os clientes na ordem fornecida
+    result.put("directions", directions);
+
+    return result;
+}
+
 
 }

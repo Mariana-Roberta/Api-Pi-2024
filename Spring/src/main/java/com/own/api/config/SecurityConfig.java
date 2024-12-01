@@ -52,9 +52,8 @@ public class SecurityConfig {
                         .requestMatchers("/geocode/**").permitAll() // Permite acesso ao console do H2
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "users").permitAll()
-                        .requestMatchers("/cliente/save").permitAll()
                         .requestMatchers("/cliente/**").permitAll()
-                        .requestMatchers("/rotas").permitAll()
+                        .requestMatchers("/rotas/**").permitAll()
                         .requestMatchers("/getAddressByLatLon/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

@@ -1,4 +1,5 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
+import { WaypointService } from '../service/waypoint.service';
 
 declare let L: any; // Declaração para usar L como global
 
@@ -9,6 +10,10 @@ declare let L: any; // Declaração para usar L como global
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements AfterViewInit {
+
+  @Input() waypoints: { lat: number; lng: number }[] = []; // Define o Input
+
+  constructor(private waypointService: WaypointService) {}
 
   ngAfterViewInit(): void {
     this.loadMap();
@@ -28,19 +33,19 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    //const marker = L.marker([-16.7476161, -49.2466723], { icon: L.Marker.prototype.options.icon }).addTo(map);
-
-    //marker.bindPopup('<b>Meu marcador!</b><br>Este é um marcador com ícone personalizado.').openPopup(); // possível colocar com o endereço por extenso
-
-    // Adicionar uma rota usando leaflet-routing-machine
-    L.Routing.control({
-      waypoints: [
-        L.latLng(-16.7476161, -49.2466723),
-        L.latLng(-16.7476161, -49.25),
-        L.latLng(-16.7476161, -49.26)
-      ],
-      routeWhileDragging: true
-    }).addTo(map);
+    const interval = setInterval(() => {
+      const waypoints = this.waypointService.getWaypoints();
+  
+      if (waypoints.length > 0) {
+        console.log('Atualizando rotas com waypoints:', waypoints);
+        L.Routing.control({
+          waypoints: waypoints.map((point) => L.latLng(point.lat, point.lng)),
+          routeWhileDragging: true,
+        }).addTo(map);
+  
+        clearInterval(interval); // Para de verificar após carregar
+      }
+    }, 500); // Verifica a cada 500ms
+}
 
   }
-}

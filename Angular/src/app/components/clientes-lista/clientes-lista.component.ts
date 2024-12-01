@@ -22,6 +22,7 @@ import { ClienteService } from '../../service/cliente.service';
 })
 export class ClientesListaComponent implements OnInit {
 
+    clienteAdmin: any;
     clientes: any [] = [];
 
     listaDePedidos: any [] = [];
@@ -31,15 +32,18 @@ export class ClientesListaComponent implements OnInit {
 
     ngOnInit(): void {
         this._clienteService.getClientes().subscribe(
-            (response) => {
-                console.log(response);
-              this.clientes = response;
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-    }
+          (response) => {
+            console.log(response);
+            this.clienteAdmin = response.filter((cliente: any) => cliente.id == 1);
+            this.clientes = response.filter((cliente: any) => cliente.id > 1);
+            this.listaDePedidos.push(this.clienteAdmin);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+      
 
     cadastrarClientes() {
         this._router.navigate(['/clientes-cadastro']);
@@ -68,17 +72,16 @@ export class ClientesListaComponent implements OnInit {
       }
 
     confirmarPedidos() {
-        // Lista de clientes com coordenadas lat e lng
+        //this._router.navigate(['/entregas'], { queryParams: { pedidos: JSON.stringify(this.listaDePedidos) } });
         this._clienteService.enviarListaDePedidos(this.listaDePedidos).subscribe({
-        next: (response) => {
-            console.log('Lista de pedidos e coordenadas enviada com sucesso:', response);
-            // Aqui você pode processar a resposta do backend, como obter a lista ordenada
-        },
-        error: (err) => {
-            console.error('Erro ao enviar lista de pedidos:', err);
-            alert('Erro ao enviar lista de pedidos.');
-        }
-    });
+            next: (response) => {
+                this._router.navigate(['/entregas'], { queryParams: { pedidos: JSON.stringify(this.listaDePedidos) } });
+            },
+            error: (err) => {
+                console.error('Erro ao enviar lista de pedidos:', err);
+                alert('Erro ao enviar lista de pedidos.');
+            }
+        }); 
     }
 
 }

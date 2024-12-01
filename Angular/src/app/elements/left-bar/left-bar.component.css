@@ -20,7 +20,7 @@
     max-height: 100%;
     border-right: 1px solid #9ac334;
     position: relative;
-    background-color: rgba(249, 230, 207, 0.6);
+    background-color: rgba(249, 230, 207, 0.4);
     padding: 10px;
 }
 
@@ -57,5 +57,11 @@ ul {
     height: 14px;
     color: currentcolor;
     margin-right: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
 }
 

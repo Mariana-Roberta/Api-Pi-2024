@@ -25,6 +25,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ClientesVisualizacaoComponent implements OnInit {
     cliente = {
+        id: 0,
         nome: '',
         email: '',
         telefone: '',
@@ -58,12 +59,12 @@ export class ClientesVisualizacaoComponent implements OnInit {
         this._router.navigate(['/clientes']);
     }
 
-    /*updateCliente() {
-        this.clienteService.addCliente(this.cliente).subscribe({ // UPDATE DO CLIENTE
+    updateCliente() {
+        this.clienteService.updateCliente(this.cliente).subscribe({ // UPDATE DO CLIENTE
             next: (response) => {
                 if (response) {
-                    console.log('Cliente cadastrado com sucesso:', response);
-                    alert('Cliente cadastrado com sucesso!');
+                    alert('Cliente atualizado com sucesso!');
+                    this._router.navigate(['/clientes']);
                 } else {
                     throw new Error('Resposta vazia do servidor');
                 }
@@ -74,5 +75,19 @@ export class ClientesVisualizacaoComponent implements OnInit {
                 alert('Erro ao cadastrar cliente.');
             }
         });
-    }*/
+    }
+
+    deleteCliente() {
+        this.clienteService.deleteCliente(this.cliente).subscribe({
+            next: (response) => {
+                alert('Cliente deletado com sucesso!');
+                this._router.navigate(['/clientes']);
+            },
+            error: (err) => {
+                console.error('Erro ao deletar cliente:', err);
+                alert('Erro ao deletar cliente.');
+            }
+        });
+    }
+    
 }

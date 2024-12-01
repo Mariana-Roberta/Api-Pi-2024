@@ -6,12 +6,8 @@
             <div class="header">Entregas Do Dia</div>
             <div class="content-categories">
                 <div class="label-wrapper">
-                    <input class="nav-item" name="nav" type="radio" id="opt-1" checked (change)="toggleView('opt-1')">
+                    <input class="nav-item" name="nav" type="radio" id="opt-1" checked>
                     <label class="category" for="opt-1">Mapa</label>
-                </div>
-                <div class="label-wrapper">
-                    <input class="nav-item" name="nav" type="radio" id="opt-2" (change)="toggleView('opt-2')">
-                    <label class="category" for="opt-2">Rotas</label>
                 </div>
             </div>
             <div class="tasks-wrapper">
@@ -23,21 +19,13 @@
                     </div>
                 </div>
                 <div class="task-enderecos"  *ngIf="rotasVisible">
-                    <div class="card-endereco endereco">
-                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000</h4>
-                    </div>
-                    <div class="card-endereco endereco">
-                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000</h4>
-                    </div>
-                    <div class="card-endereco endereco">
-                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000</h4>
-                    </div>
-                    <div class="card-endereco endereco">
-                        <h4 style="font-weight: 400">Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000</h4>
+                    <div 
+                        class="card-endereco endereco" 
+                        *ngFor="let direction of translatedDirections; let i = index"
+                    >
+                        <h4 style="font-weight: 400">
+                        <span style="font-weight: 600;">Direção {{ i + 1 }}:</span>  {{ direction }}
+                        </h4>
                     </div>
                 </div>
             </div>
@@ -45,45 +33,20 @@
         <div class="right-bar">
             <div class="header" style="margin-top: 40px">Pedidos</div>
             <div class="right-content">
-                <div class="task-box">
+                <div *ngIf="listaDePedidos.length === 0"><p style="color: darkred; font-size: 14px;">Clique em 'Listar Pedidos' para calcular rota do dia</p></div>
+                <div class="task-box" *ngFor="let pedido of listaDePedidos">
                     <div class="description-task">
-                        <div class="time">Nome Do Cliente</div>
+                        <div class="time">{{ pedido.nome }}</div>
                         <div class="task-name">
-                            Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000
-                        </div>
-                    </div>
-                </div>
-                <div class="task-box">
-                    <div class="description-task">
-                        <div class="time">Nome Do Cliente</div>
-                        <div class="task-name">
-                            Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000
-                        </div>
-                    </div>
-                </div>
-                <div class="task-box">
-                    <div class="description-task">
-                        <div class="time">Nome Do Cliente</div>
-                        <div class="task-name">
-                            Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000
-                        </div>
-                    </div>
-                </div>
-                <div class="task-box">
-                    <div class="description-task">
-                        <div class="time">Nome Do Cliente</div>
-                        <div class="task-name">
-                            Endereço: Av. C-4, <br/>
-                            CEP: 74.900-000
+                            CEP: {{ pedido.cep }}<br />
+                            Logradouro: {{ pedido.logradouro }}<br />
+                            Bairro: {{ pedido.bairro }}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="bottom-bar">
-                <button class="btn-calcular">Calcular Rota</button>
+                <button class="btn-calcular" (click)="listarPedidos()">Listar Pedidos</button>
             </div>
         </div>
     </div>

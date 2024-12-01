@@ -55,8 +55,8 @@
                                 <input  type="text" pInputText [(ngModel)]="cliente.bairro" name="bairro" required />
                             </div>
 
-                            <button pButton type="submit" label="Salvar" icon="pi pi-check"></button>
-                            <button pButton type="submit" label="Excluir" icon="pi pi-trash" severity="danger" style="margin-left: 10px; color: white;"></button>
+                            <button pButton type="submit" label="Salvar" icon="pi pi-check" (click)="updateCliente()"></button>
+                            <button pButton type="submit" label="Excluir" icon="pi pi-trash" severity="danger" style="margin-left: 10px; color: white;" (click)="deleteCliente()"></button>
                         </form>
                     </div>
                 </div>

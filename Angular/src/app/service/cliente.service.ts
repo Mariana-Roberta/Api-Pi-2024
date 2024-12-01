@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, Observable, of} from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {catchError, Observable, of, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,8 @@ export class ClienteService {
 
   getClientes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/cliente/findAll`).pipe(
-        catchError(this.handleError<any[]>('getClientes', [])));;
+      catchError(this.handleError)
+    );
   }
 
   getClienteById(id: number) {
@@ -25,7 +26,25 @@ export class ClienteService {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + token
     });*/
-    return this.http.post<any>(`${this.apiUrl}/cliente/save`, cliente/*, { headers }*/);
+    return this.http.post<any>(`${this.apiUrl}/cliente/save`, cliente/*, { headers }*/).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateCliente(cliente: any): Observable<any> {
+    /*const token = JSON.parse(localStorage.getItem('token') || '');
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + token
+    });*/
+    return this.http.put<any>(`${this.apiUrl}/cliente/update`, cliente/*, { headers }*/).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteCliente(cliente: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/cliente/delete/${cliente.id}`/*, { headers }*/).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Função para enviar a lista de pedidos para o backend
@@ -33,10 +52,19 @@ export class ClienteService {
     return this.http.post<any>(`${this.apiUrl}/rotas`, listaDePedidos);
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
+  getDirections(listaDePedidos: any[]): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/rotas/directions`, listaDePedidos);
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Ocorreu um erro desconhecido.';
+    if (error.error instanceof ErrorEvent) {
+      // Erro do lado do cliente
+      errorMessage = `Erro: ${error.error.message}`;
+    } else {
+      // Erro do lado do servidor
+      errorMessage = error.error.message; // A mensagem do Spring Boot será recebida aqui
     }
+    return throwError(() => errorMessage);
   }
 }

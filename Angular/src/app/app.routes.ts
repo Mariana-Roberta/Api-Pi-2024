@@ -16,6 +16,7 @@ import {ClientesVisualizacaoComponent} from "./components/clientes-visualizacao/
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'entregas', component: EntregasComponent, canActivate: [adminGuard] },
+  { path: 'entregas/:listaDePedidos', component: EntregasComponent, canActivate: [adminGuard] },
   { path: 'clientes', component: ClientesListaComponent/*, canActivate: [adminGuard] */},
   { path: 'clientes-cadastro', component: ClientesCadastroComponent, canActivate: [adminGuard] },
   { path: 'clientes-visualizacao', component: ClientesVisualizacaoComponent, canActivate: [adminGuard] },

@@ -34,8 +34,8 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("/save/{id}")
-    public Cliente update(@PathVariable Long id, @RequestBody Cliente cliente) {
+    @PutMapping("/update")
+    public Cliente update(@RequestBody Cliente cliente) {
         return clienteService.update(cliente);
     }
 
