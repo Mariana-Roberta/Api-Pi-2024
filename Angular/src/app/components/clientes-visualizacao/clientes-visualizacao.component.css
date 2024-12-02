@@ -20,6 +20,21 @@
     overflow-y: auto;
 }
 
+.map-container-2 {
+    height: 400px;
+    margin: 40px 0;
+}
+
+.map-frame-2 {
+    border: 2px solid black;
+    border-radius: 4px;
+    height: 100%;
+}
+
+#map-2 {
+    height: 100%;
+}
+
 .perfil-usuario {
     padding: 20px;
 }

@@ -28,6 +28,13 @@ import {
   zindexutils
 } from "./chunk-6WOVN75F.js";
 import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  NgControlStatus,
+  NgModel
+} from "./chunk-KYCRWM4M.js";
+import {
   animate,
   animation,
   state,
@@ -40,13 +47,6 @@ import {
   DomSanitizer
 } from "./chunk-AMTF7YZS.js";
 import "./chunk-3TGL3I32.js";
-import {
-  FormsModule,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-  NgControlStatus,
-  NgModel
-} from "./chunk-KYCRWM4M.js";
 import {
   CommonModule,
   DOCUMENT,

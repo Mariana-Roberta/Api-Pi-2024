@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
 import {LocationService} from "../../service/location.service";
 import {NgIf} from "@angular/common";
 import {GeoService} from "../../service/geocoding.service";
+import {AddressService} from "../../service/address.service";
+import {NgxMaskDirective} from "ngx-mask";
 
 @Component({
   selector: 'app-clientes-cadastro',
@@ -24,7 +26,8 @@ import {GeoService} from "../../service/geocoding.service";
         InputTextModule,
         MapMarkerComponent,
         ReactiveFormsModule,
-        NgIf
+        NgIf,
+        NgxMaskDirective
     ],
   templateUrl: './clientes-cadastro.component.html',
   styleUrl: './clientes-cadastro.component.css'
@@ -44,12 +47,27 @@ export class ClientesCadastroComponent implements OnInit {
 
     location: { lat: number; lng: number } | null = null;
 
-    constructor(private _router: Router, private clienteService: ClienteService, private geoService: GeoService, private locationService: LocationService) {
+    address: any;
+
+    constructor(private _router: Router, private clienteService: ClienteService, private geoService: GeoService, private locationService: LocationService, private addressService: AddressService ) {
     }
 
     ngOnInit(): void {
         this.locationService.location$.subscribe((location) => {
             this.location = location;
+        });
+
+        this.addressService.address$.subscribe((address) => {
+            this.address = address;
+            console.log('Endereço recebido:', this.address);
+
+            // Preenche automaticamente os campos do cliente
+            if (this.address) {
+                this.cliente.logradouro = this.address.road || '';
+                this.cliente.bairro = this.address.suburb || '';
+                this.cliente.cep = this.address.postcode || '';
+                this.cliente.numero = 'S/N';
+            }
         });
     }
 
@@ -88,16 +106,37 @@ export class ClientesCadastroComponent implements OnInit {
     searchCoordinates(zipCode: string) {
         this.geoService.getCoordinatesFromZipCode(zipCode).subscribe(
             (response) => {
+                console.log('RESPONSE:', response); // Verifica a resposta completa
+
                 if (response && response.length > 0) {
-                    this.coordinates = response[0]; // Pega a primeira correspondência
+                    const addressData = response[0]; // Seleciona o primeiro resultado
+
+                    // Dividir o display_name em partes
+                    const addressParts = addressData.display_name.split(',').map((part: string) => part.trim());
+
+                    // Preencher os campos baseados na posição no array
+                    this.cliente.cep = addressParts[0] || ''; // Primeiro item (CEP)
+                    this.cliente.logradouro = addressParts[1] || '';
+                    this.cliente.bairro = addressParts[1] || ''; // Segundo item (Bairro/Subdivisão)
+                    this.cliente.numero = 'S/N';
+
+                    this.coordinates = {
+                        lat: addressData.lat,
+                        lng: addressData.lon
+                    };
+
+                    this.semCep = ''; // Limpa mensagens de erro anteriores
+                    console.log('Endereço extraído:', this.cliente);
                 } else {
-                    console.error('Nenhuma coordenada encontrada');
+                    console.error('Nenhum endereço encontrado para o CEP');
+                    this.semCep = 'Nenhum endereço encontrado para o CEP informado.';
                 }
             },
             (error) => {
-                console.error('Erro ao obter coordenadas:', error);
-                this.semCep = 'Cep não encontrado. Utilize o mapa para marcar sua localização.';
+                console.error('Erro ao obter coordenadas:', error); // Detalhes do erro
+                this.semCep = 'Erro ao buscar endereço. Utilize o mapa para marcar sua localização.';
             }
         );
     }
+
 }

@@ -25,7 +25,7 @@
                             <!-- Telefone -->
                             <div class="p-field">
                                 <label >Telefone</label>
-                                <input  type="text" pInputText [(ngModel)]="cliente.telefone" name="telefone" required />
+                                <input  type="text" pInputText [(ngModel)]="cliente.telefone" name="telefone" required mask="(00) 0 0000-0000" />
                             </div>
 
                             <!-- Endereço -->
@@ -33,9 +33,11 @@
 
                             <!-- CEP -->
                             <div class="p-field">
-                                <label >CEP</label>
-                                <input  type="text" pInputText [(ngModel)]="cliente.cep" name="cep" required />
+                                <label for="cep">CEP <span class="obrigatorio">*</span></label>
+                                <input id="cep" type="text" pInputText [(ngModel)]="cliente.cep" name="cep" required mask="00000-000" />
+                                <button type="button" style="border: none; border-radius: 4px; padding: 5px; background-color: #9ac334;" (click)="searchCoordinates(cliente.cep)">Buscar CEP</button>
                             </div>
+                            <p *ngIf="semCep" style="font-size: 16px; margin: 10px 0; color: darkred">{{semCep}}</p>
 
                             <!-- Rua -->
                             <div class="p-field">
@@ -54,6 +56,14 @@
                                 <label >Bairro</label>
                                 <input  type="text" pInputText [(ngModel)]="cliente.bairro" name="bairro" required />
                             </div>
+
+                            <div class="map-container-2">
+                                <div class="map-frame-2">
+                                    <div id="map-2"><app-map-marker/></div>
+                                </div>
+                            </div>
+
+                            <p *ngIf="location" style="font-size: 16px">Latitude: {{location?.lat}};  <br/> Longitude: {{location?.lng}}</p>
 
                             <button pButton type="submit" label="Salvar" icon="pi pi-check" (click)="updateCliente()"></button>
                             <button pButton type="submit" label="Excluir" icon="pi pi-trash" severity="danger" style="margin-left: 10px; color: white;" (click)="deleteCliente()"></button>

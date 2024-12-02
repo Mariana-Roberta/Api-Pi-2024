@@ -53,7 +53,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/geocode/**").permitAll()
+                        .requestMatchers("/geocode").permitAll()
+                        .requestMatchers("/postalCode").permitAll()
+                        .requestMatchers("/getAddressByLatLon/**").permitAll()
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente/save").hasRole("ADMIN")

@@ -34,6 +34,8 @@ public class StartApplication implements CommandLineRunner {
 
         createClienteIfNotExists("fatesg", "admin@email.com", "62000000000", "74610155", "Rua 227-A", "95", "Setor Leste Universitário", -16.671255, -49.238687);
 
+        createClienteIfNotExists("Cliente Teste 1", "cliente1@email.com", "62983747645", "74910300", "Rua Flamboyant", "S/N", "Vila Santos Dumont", -16.671255, -49.238687);
+
         // Criação do usuário user
         createUserIfNotExists("user", "123", "ROLE_USER");
     }

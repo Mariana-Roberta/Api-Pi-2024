@@ -1,6 +1,8 @@
 package com.own.api.controller;
 
 import com.own.api.service.GeocodingService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,11 +29,22 @@ public class GeocodingController {
         return geocodingService.getCoordinatesFromAddress(address);
     }
 
-    @GetMapping("/geocode/adress")
-    public String geocodeAddress(@RequestParam String street,
-                                 @RequestParam String city,
-                                 @RequestParam String postalCode) {
-        return geocodingService.geocodeAddress(street, city, postalCode);
+    @GetMapping("/postalCode")
+    public ResponseEntity<String> geocodeAddress(@RequestParam String postalCode) {
+        System.out.println("RequestParam postalCode: " + postalCode); // Verifique se o postalCode está chegando corretamente
+        try {
+            String address = geocodingService.getAddressByPostalCode(postalCode);
+            System.out.println("Address encontrado: " + address); // Log para verificar a resposta do serviço
+            if (address != null && !address.isEmpty()) {
+                return ResponseEntity.ok(address);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereço não encontrado para o CEP informado.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a solicitação: " + e.getMessage());
+        }
     }
+
 }
 
