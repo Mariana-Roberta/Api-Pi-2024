@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -21,16 +22,23 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("authenticate")
-    public ResponseEntity<Map<String, String>> authenticate(@RequestBody UserDTO userDTO) {
-        String token = authenticationService.authenticate(userDTO.getUsername(), userDTO.getPassword());
+public ResponseEntity<Map<String, Object>> authenticate(@RequestBody UserDTO userDTO) {
+    // Autentica o usuário e obtém o token
+    String token = authenticationService.authenticate(userDTO.getUsername(), userDTO.getPassword());
 
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
+    // Obtém as roles do usuário autenticado
+    List<String> roles = authenticationService.getRolesForUser(userDTO.getUsername());
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
-    }
+    // Cria a resposta com token e roles
+    Map<String, Object> response = new HashMap<>();
+    response.put("token", token);
+    response.put("roles", roles);
+
+    return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
+}
+
 
 
 }

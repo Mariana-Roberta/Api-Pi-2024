@@ -52,6 +52,11 @@ public class SecurityConfig {
                         .requestMatchers("/geocode/**").permitAll() // Permite acesso ao console do H2
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "users").permitAll()
+                        .requestMatchers("/cliente/**").permitAll()
+                        .requestMatchers("/rotas/**").permitAll()
+                        .requestMatchers("/getAddressByLatLon/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll() // Permite acesso ao Swagger UI
+                        .requestMatchers("/v3/api-docs/**").permitAll() // Permite acesso aos endpoints de documentação
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()));

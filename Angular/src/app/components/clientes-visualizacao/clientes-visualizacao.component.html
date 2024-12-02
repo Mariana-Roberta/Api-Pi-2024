@@ -1,0 +1,67 @@
+
+<div class="container">
+    <app-left-bar/>
+    <div class="main-clientes">
+        <div class="perfil-usuario">
+            <div class="p-grid p-dir-col p-align-center">
+                <div class="p-col-12 p-md-6">
+                    <a class="link-voltar" style="margin-bottom: 20px" (click)="voltar()">Voltar</a>
+                    <h2>Dados do Usuário</h2>
+                    <p>Altere os dados abaixo para salvar as novas informações do usuário</p>
+                    <div class="form-container">
+                        <form>
+                            <!-- Nome -->
+                            <div class="p-field">
+                                <label >Nome</label>
+                                <input type="text" pInputText [(ngModel)]="cliente.nome" name="nome" required />
+                            </div>
+
+                            <!-- E-mail -->
+                            <div class="p-field">
+                                <label >E-mail</label>
+                                <input  type="email" pInputText [(ngModel)]="cliente.email" name="email" required />
+                            </div>
+
+                            <!-- Telefone -->
+                            <div class="p-field">
+                                <label >Telefone</label>
+                                <input  type="text" pInputText [(ngModel)]="cliente.telefone" name="telefone" required />
+                            </div>
+
+                            <!-- Endereço -->
+                            <h3>Endereço</h3>
+
+                            <!-- CEP -->
+                            <div class="p-field">
+                                <label >CEP</label>
+                                <input  type="text" pInputText [(ngModel)]="cliente.cep" name="cep" required />
+                            </div>
+
+                            <!-- Rua -->
+                            <div class="p-field">
+                                <label >Logradouro</label>
+                                <input  type="text" pInputText [(ngModel)]="cliente.logradouro" name="rua" required />
+                            </div>
+
+                            <!-- Número -->
+                            <div class="p-field">
+                                <label >Número</label>
+                                <input  type="text" pInputText [(ngModel)]="cliente.numero" name="numero" required />
+                            </div>
+
+                            <!-- Bairro -->
+                            <div class="p-field">
+                                <label >Bairro</label>
+                                <input  type="text" pInputText [(ngModel)]="cliente.bairro" name="bairro" required />
+                            </div>
+
+                            <button pButton type="submit" label="Salvar" icon="pi pi-check" (click)="updateCliente()"></button>
+                            <button pButton type="submit" label="Excluir" icon="pi pi-trash" severity="danger" style="margin-left: 10px; color: white;" (click)="deleteCliente()"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

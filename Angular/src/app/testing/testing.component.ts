@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {NgIf} from "@angular/common";
+import {ClienteService} from "../service/cliente.service";
 import {MapComponent} from "../map/map.component";
 import {FormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {ButtonDirective} from "primeng/button";
 import {TableModule} from "primeng/table";
+import {MapMarkerComponent} from "../map-marker/map-marker.component";
 
 @Component({
   selector: 'app-testing',
@@ -15,12 +17,15 @@ import {TableModule} from "primeng/table";
     FormsModule,
     InputTextModule,
     ButtonDirective,
-    TableModule
+    TableModule,
+    MapMarkerComponent
   ],
   templateUrl: './testing.component.html',
   styleUrl: './testing.component.css'
 })
 export class TestingComponent implements OnInit{
+  constructor(private clienteService: ClienteService) {
+  }
 
   entregasVisible: boolean = true;
   clientesVisible: boolean = false;
@@ -63,24 +68,35 @@ export class TestingComponent implements OnInit{
     console.log(this.cadastroClientesVisible)
   }
 
-  usuario = {
+  cliente = {
     nome: '',
     email: '',
     telefone: '',
-    endereco: {
-      cep: '',
-      rua: '',
-      numero: '',
-      bairro: '',
-      cidade: '',
-      estado: ''
-    }
+    cep: '',
+    logradouro: '',
+    numero: '',
+    bairro: ''
   };
 
-  onSubmit() {
-    this.toggleMain(false, true, false);
-    console.log('Usuário cadastrado:', this.usuario);
-  }
+  /*onSubmit() {
+    //this.toggleMain(false, true, false);
+    this.clienteService.addCliente(this.cliente).subscribe({
+      next: (response) => {
+        if (response) {
+          console.log('Cliente cadastrado com sucesso:', response);
+          alert('Cliente cadastrado com sucesso!');
+        } else {
+          throw new Error('Resposta vazia do servidor');
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao cadastrar cliente:', err);
+        console.log(err);
+        alert('Erro ao cadastrar cliente.');
+      }
+    });
+    //console.log('Usuário cadastrado:', this.cliente);
+  }*/
 
   abrirDetalhesDoUsuario() {
 

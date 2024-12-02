@@ -1,6 +1,8 @@
 package com.own.api;
 
 import com.own.api.model.User;
+import com.own.api.model.Cliente;
+import com.own.api.repository.ClienteRepository;
 import com.own.api.repository.UserRepository;
 import com.own.api.service.OpenRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,32 +20,51 @@ public class StartApplication implements CommandLineRunner {
     private OpenRouteService openRouteService;
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @Transactional
     @Override
     public void run(String... args) throws Exception {
 
-        // Chama o teste
-        System.out.println("Executando teste do OpenRouteService...");
-        openRouteService.testRoute();
-
         // Criação do usuário admin
         createUserIfNotExists("admin", "123", "ROLE_ADMIN");
+
+        createClienteIfNotExists("fatesg", "admin@email.com", "62000000000", "74610155", "Rua 227-A", "95", "Setor Leste Universitário", -16.671255, -49.238687);
 
         // Criação do usuário user
         createUserIfNotExists("user", "123", "ROLE_USER");
     }
 
     private void createUserIfNotExists(String username, String password, String role) {
-        Optional<User> optionalUser = repository.findByUsername(username);
+        Optional<User> optionalUser = userRepository.findByUsername(username);
 
         if (optionalUser.isEmpty()) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(new BCryptPasswordEncoder().encode(password));
             user.getRoles().add(role);
-            repository.save(user);
+            userRepository.save(user);
+        }
+    }
+
+    private void createClienteIfNotExists(String nome, String email, String telefone, String cep, String logradouro, String numero, String bairro, double lat, double lng) {
+        Optional<Cliente> optionalCliente = clienteRepository.findById((long)1);
+
+        if (optionalCliente.isEmpty()) {
+            Cliente cliente = new Cliente();
+            cliente.setNome(nome);
+            cliente.setEmail(email);
+            cliente.setTelefone(telefone);
+            cliente.setCep(cep);
+            cliente.setLogradouro(logradouro);
+            cliente.setNumero(numero);
+            cliente.setBairro(bairro);
+            cliente.setLat(lat);
+            cliente.setLng(lng);
+            clienteRepository.save(cliente);
         }
     }
 

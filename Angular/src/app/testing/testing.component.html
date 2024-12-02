@@ -348,23 +348,23 @@
                     <h2>Cadastro de Usuário</h2>
                     <p>Preencha os dados abaixo para se cadastrar</p>
                     <div class="form-container">
-                    <form (ngSubmit)="onSubmit()">
+                    <form>
                         <!-- Nome -->
                         <div class="p-field">
                             <label for="nome">Nome <span class="obrigatorio">*</span></label>
-                            <input id="nome" type="text" pInputText [(ngModel)]="usuario.nome" name="nome" required />
+                            <input id="nome" type="text" pInputText [(ngModel)]="cliente.nome" name="nome" required />
                         </div>
 
                         <!-- E-mail -->
                         <div class="p-field">
                             <label for="email">E-mail <span class="obrigatorio">*</span></label>
-                            <input id="email" type="email" pInputText [(ngModel)]="usuario.email" name="email" required />
+                            <input id="email" type="email" pInputText [(ngModel)]="cliente.email" name="email" required />
                         </div>
 
                         <!-- Telefone -->
                         <div class="p-field">
                             <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
-                            <input id="telefone" type="text" pInputText [(ngModel)]="usuario.telefone" name="telefone" required />
+                            <input id="telefone" type="text" pInputText [(ngModel)]="cliente.telefone" name="telefone" required />
                         </div>
 
                         <!-- Endereço -->
@@ -373,25 +373,25 @@
                         <!-- CEP -->
                         <div class="p-field">
                             <label for="cep">CEP <span class="obrigatorio">*</span></label>
-                            <input id="cep" type="text" pInputText [(ngModel)]="usuario.endereco.cep" name="cep" required />
+                            <input id="cep" type="text" pInputText [(ngModel)]="cliente.cep" name="cep" required />
                         </div>
 
                         <!-- Rua -->
                         <div class="p-field">
                             <label for="rua">Logradouro <span class="obrigatorio">*</span></label>
-                            <input id="rua" type="text" pInputText [(ngModel)]="usuario.endereco.rua" name="rua" required />
+                            <input id="rua" type="text" pInputText [(ngModel)]="cliente.logradouro" name="rua" required />
                         </div>
 
                         <!-- Número -->
                         <div class="p-field">
                             <label for="numero">Número <span class="obrigatorio">*</span></label>
-                            <input id="numero" type="text" pInputText [(ngModel)]="usuario.endereco.numero" name="numero" required />
+                            <input id="numero" type="text" pInputText [(ngModel)]="cliente.numero" name="numero" required />
                         </div>
 
                         <!-- Bairro -->
                         <div class="p-field">
                             <label for="bairro">Bairro <span class="obrigatorio">*</span></label>
-                            <input id="bairro" type="text" pInputText [(ngModel)]="usuario.endereco.bairro" name="bairro" required />
+                            <input id="bairro" type="text" pInputText [(ngModel)]="cliente.bairro" name="bairro" required />
                         </div>
 
                         <!-- Cidade
@@ -405,6 +405,12 @@
                             <label for="estado">Estado</label>
                             <input id="estado" type="text" pInputText [(ngModel)]="usuario.endereco.estado" name="estado" required />
                         </div>-->
+
+                        <div class="map-container-2">
+                            <div class="map-frame-2">
+                                <div id="map-2"><app-map-marker/></div>
+                            </div>
+                        </div>
 
                         <!-- Botão de Submit -->
                         <button pButton type="submit" label="Cadastrar" icon="pi pi-check"></button>
@@ -421,23 +427,23 @@
                     <h2>Dados do Usuário</h2>
                     <p>Altere os dados abaixo para salvar as novas informações do usuário</p>
                     <div class="form-container">
-                        <form (ngSubmit)="onSubmit()">
+                        <form>
                             <!-- Nome -->
                             <div class="p-field">
                                 <label >Nome</label>
-                                <input type="text" pInputText [(ngModel)]="usuario.nome" name="nome" required />
+                                <input type="text" pInputText [(ngModel)]="cliente.nome" name="nome" required />
                             </div>
 
                             <!-- E-mail -->
                             <div class="p-field">
                                 <label >E-mail</label>
-                                <input  type="email" pInputText [(ngModel)]="usuario.email" name="email" required />
+                                <input  type="email" pInputText [(ngModel)]="cliente.email" name="email" required />
                             </div>
 
                             <!-- Telefone -->
                             <div class="p-field">
                                 <label >Telefone</label>
-                                <input  type="text" pInputText [(ngModel)]="usuario.telefone" name="telefone" required />
+                                <input  type="text" pInputText [(ngModel)]="cliente.telefone" name="telefone" required />
                             </div>
 
                             <!-- Endereço -->
@@ -446,25 +452,25 @@
                             <!-- CEP -->
                             <div class="p-field">
                                 <label >CEP</label>
-                                <input  type="text" pInputText [(ngModel)]="usuario.endereco.cep" name="cep" required />
+                                <input  type="text" pInputText [(ngModel)]="cliente.cep" name="cep" required />
                             </div>
 
                             <!-- Rua -->
                             <div class="p-field">
                                 <label >Logradouro</label>
-                                <input  type="text" pInputText [(ngModel)]="usuario.endereco.rua" name="rua" required />
+                                <input  type="text" pInputText [(ngModel)]="cliente.logradouro" name="rua" required />
                             </div>
 
                             <!-- Número -->
                             <div class="p-field">
                                 <label >Número</label>
-                                <input  type="text" pInputText [(ngModel)]="usuario.endereco.numero" name="numero" required />
+                                <input  type="text" pInputText [(ngModel)]="cliente.numero" name="numero" required />
                             </div>
 
                             <!-- Bairro -->
                             <div class="p-field">
                                 <label >Bairro</label>
-                                <input  type="text" pInputText [(ngModel)]="usuario.endereco.bairro" name="bairro" required />
+                                <input  type="text" pInputText [(ngModel)]="cliente.bairro" name="bairro" required />
                             </div>
 
                             <button pButton type="submit" label="Salvar" icon="pi pi-check"></button>

@@ -10,3 +10,25 @@
 <div *ngIf="!coordinates">
     <p>Coordenadas não encontradas.</p>
 </div>
+
+<div>
+    <h2>Geocoding (Search by Street, Bairro, City, and Country)</h2>
+
+    <div>
+        <input [(ngModel)]="street" placeholder="Enter Street" />
+        <input [(ngModel)]="bairro" placeholder="Enter Bairro (Neighborhood)" />
+        <input [(ngModel)]="city" placeholder="Enter City" />
+        <input [(ngModel)]="country" placeholder="Enter Country" />
+        <button (click)="searchAddress()">Search Address</button>
+    </div>
+
+    <div *ngIf="errorMessage" style="color: red;">
+        <strong>Error:</strong> {{ errorMessage }}
+    </div>
+
+    <div *ngIf="address && !errorMessage">
+        <h3>Address:</h3>
+        <pre>{{ address | json }}</pre>
+    </div>
+</div>
+
