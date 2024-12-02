@@ -55,6 +55,8 @@ public class SecurityConfig {
                         .requestMatchers("/cliente/**").permitAll()
                         .requestMatchers("/rotas/**").permitAll()
                         .requestMatchers("/getAddressByLatLon/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll() // Permite acesso ao Swagger UI
+                        .requestMatchers("/v3/api-docs/**").permitAll() // Permite acesso aos endpoints de documentação
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()));
