@@ -69,9 +69,15 @@ export class ClientesCadastroComponent implements OnInit {
                 }
             },
             error: (err) => {
-                console.error('Erro ao cadastrar cliente:', err);
-                console.log(err);
-                alert('Erro ao cadastrar cliente.');
+                if (err.status === 400) {
+                    // Extraindo a mensagem do erro
+                    const errorMessage = err.error?.message || 'Erro desconhecido';
+                    console.error('Erro ao cadastrar cliente:', errorMessage);
+                    alert(`Erro: ${errorMessage}`);
+                } else {
+                    console.error('Erro inesperado:', err);
+                    alert('Ocorreu um erro inesperado. Tente novamente.');
+                }
             }
         });
     }

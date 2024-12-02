@@ -73,7 +73,6 @@ public class Tsp {
         for (int i = 0; i < route.length - 1; i++) {
             totalDistance += cost[route[i]][route[i + 1]];
         }
-        System.out.println("Distância total: " + totalDistance);
         return totalDistance;
     }
 

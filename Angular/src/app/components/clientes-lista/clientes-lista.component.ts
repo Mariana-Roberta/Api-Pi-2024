@@ -113,10 +113,15 @@ export class ClientesListaComponent implements OnInit {
                       console.error('Resposta do backend não contém a lista reorganizada.');
                   }
               },
-              error: (err) => {
-                  console.error('Erro ao enviar lista de pedidos:', err);
-                  alert('Erro ao enviar lista de pedidos.');
-              }
+              error: (error) => {
+                  if (error.status === 400) {
+                      console.error('Erro na solicitação:', error.error?.error); // Mensagem da exceção
+                      alert(error.error?.error); // Mostra o alerta com a mensagem da exceção
+                  } else {
+                      console.error('Erro inesperado:', error);
+                      alert('Ocorreu um erro inesperado.');
+                  }
+              },
           });
       }
 
