@@ -5,6 +5,9 @@ import com.own.api.tools.Tsp;
 import com.own.api.service.ClienteService;
 import com.own.api.service.OpenRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,39 +31,16 @@ public class RotasController {
         this.openRouteService = openRouteService;
     }
 
-    /* @PostMapping
-    public List<Cliente> generateBestRoute(@RequestBody List<Cliente> clients) {
-        // Passo 1: Extrair as coordenadas (latitude, longitude) dos clientes
-        List<List<Double>> coordinates = new ArrayList<>();
-        for (Cliente client : clients) {
-            coordinates.add(Arrays.asList(client.getLng(), client.getLat())); // [longitude, latitude]
-        }
-
-        // Passo 2: Gerar a matriz de distâncias utilizando OpenRouteService
-        Map<String, double[][]> distanceMatrix = openRouteService.getRoute(coordinates);
-
-        // Passo 3: Aplicar o algoritmo TSP usando a matriz de distâncias
-        System.out.println(distanceMatrix.get("distances"));
-        int[] bestRouteIndices = Tsp.tsp(distanceMatrix.get("distances"));
-
-        // Passo 4: Organizar os clientes na ordem da melhor rota
-        List<Cliente> orderedClients = new ArrayList<>();
-        for (int index : bestRouteIndices) {
-            orderedClients.add(clients.get(index));  // Adiciona os clientes na ordem correta
-        }
-
-        // Passo 5: Retornar a lista de clientes na ordem da melhor rota
-        return orderedClients;
-    } */
 
     @PostMapping
-public Map<String, Object> generateBestRoute(@RequestBody List<Cliente> clients) {
+    @PreAuthorize("hasRole('ADMIN')")
+public ResponseEntity<?> generateBestRoute(@RequestBody List<Cliente> clients) {
    
     List<List<Double>> coordinates = new ArrayList<>();
     for (Cliente client : clients) {
         coordinates.add(Arrays.asList(client.getLng(), client.getLat()));
     }
-    System.out.println(coordinates);
+
     // Passo 2: Gerar a matriz de distâncias utilizando OpenRouteService
     Map<String, double[][]> distanceMatrix = openRouteService.getRoute(coordinates);
 
@@ -88,10 +68,16 @@ public Map<String, Object> generateBestRoute(@RequestBody List<Cliente> clients)
     result.put("orderedClients", orderedClients);
     result.put("totalDistance", totalDistance);
 
-    return result;
+    //return result;
+        if (result != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result); // Retorna o objeto com status 201
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Retorna erro se não conseguir salvar
+        }
 }
 
 @PostMapping("/directions")
+@PreAuthorize("hasRole('ADMIN')")
 public Map<String, Object> generateDirections(@RequestBody List<Cliente> clients) {
     // Passo 1: Extrair as coordenadas (longitude, latitude) dos clientes
     List<List<Double>> coordinates = new ArrayList<>();

@@ -7,11 +7,14 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.Instant;
-import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
+    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
 
     private final JwtEncoder encoder;
 
@@ -23,10 +26,12 @@ public class JwtService {
         Instant now = Instant.now();
         long expiry = 36000L;
 
-        var roles = authentication
-                .getAuthorities().stream()
+        var roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
+
+        logger.info("Gerando token para usuário: {}", authentication.getName());
+        logger.info("Roles: {}", roles);
 
         var claims = JwtClaimsSet.builder()
                 .issuer("jwt")
@@ -39,3 +44,4 @@ public class JwtService {
         return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 }
+

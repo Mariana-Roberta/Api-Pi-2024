@@ -12,48 +12,89 @@ export class ClienteService {
   constructor(private http: HttpClient) {}
 
   getClientes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/cliente/findAll`).pipe(
+    const token = localStorage.getItem('token') || '';
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}/cliente/findAll`, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
   getClienteById(id: number) {
-    return this.http.get<any>(`${this.apiUrl}/cliente/${id}`);
+    const token = localStorage.getItem('token') || '';
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.get<any>(`${this.apiUrl}/cliente/${id}`, { headers });
   }
 
   addCliente(cliente: any): Observable<any> {
-    /*const token = JSON.parse(localStorage.getItem('token') || '');
+    const token = localStorage.getItem('token') || '';
+
     const headers = new HttpHeaders({
-      Authorization: 'Basic ' + token
-    });*/
-    return this.http.post<any>(`${this.apiUrl}/cliente/save`, cliente/*, { headers }*/).pipe(
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<any>(`${this.apiUrl}/cliente/save`, cliente, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
   updateCliente(cliente: any): Observable<any> {
-    /*const token = JSON.parse(localStorage.getItem('token') || '');
+    const token = localStorage.getItem('token') || '';
+
     const headers = new HttpHeaders({
-      Authorization: 'Basic ' + token
-    });*/
-    return this.http.put<any>(`${this.apiUrl}/cliente/update`, cliente/*, { headers }*/).pipe(
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put<any>(`${this.apiUrl}/cliente/update`, cliente, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
   deleteCliente(cliente: any): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/cliente/delete/${cliente.id}`/*, { headers }*/).pipe(
+    const token = localStorage.getItem('token') || '';
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.delete(`${this.apiUrl}/cliente/delete/${cliente.id}`, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
   // Função para enviar a lista de pedidos para o backend
   enviarListaDePedidos(listaDePedidos: any[]): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/rotas`, listaDePedidos);
+    const token = localStorage.getItem('token') || '';
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<any>(`${this.apiUrl}/rotas`, listaDePedidos, { headers });
   }
 
   getDirections(listaDePedidos: any[]): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/rotas/directions`, listaDePedidos);
+    const token = localStorage.getItem('token') || '';
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<any>(`${this.apiUrl}/rotas/directions`, listaDePedidos, { headers });
   }
 
   private handleError(error: HttpErrorResponse) {

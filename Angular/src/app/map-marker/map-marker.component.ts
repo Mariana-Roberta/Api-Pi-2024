@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import {GeoService} from "../service/geocoding.service";
-import {LocationService} from "../service/location.service"; // Importe o serviço
+import {LocationService} from "../service/location.service";
+import {AddressService} from "../service/address.service"; // Importe o serviço
 
 declare let L: any; // Declaração para usar L como global
 
@@ -14,7 +15,7 @@ export class MapMarkerComponent implements AfterViewInit {
 
   private currentMarker: any = null; // Variável para armazenar o marcador atual
 
-  constructor(private geocodingService: GeoService, private locationService: LocationService) {}
+  constructor(private geocodingService: GeoService, private locationService: LocationService, private addressService: AddressService) {}
 
   ngAfterViewInit(): void {
     this.loadMap();
@@ -54,15 +55,26 @@ export class MapMarkerComponent implements AfterViewInit {
       // Chamar o serviço para obter o endereço
       this.geocodingService.getAddressByLatLon(lat, lng).subscribe(
           (response) => {
-            if (response && response.display_name) {
-              console.log(response.display_name);
-              // Aqui você pode usar response.display_name sem risco de erro
-            } else {
-              console.error("A resposta não contém 'display_name' ou é nula.");
+            if (response && response.address) {
+              const addressDetails = response.address;
+              this.addressService.setAddress(addressDetails); // Armazena o endereço no serviço
+
+              // Atualiza o marcador no mapa com os detalhes do endereço
+              const rua = addressDetails.road || "Rua não identificada";
+              const bairro = addressDetails.suburb || "Bairro não identificado";
+              const cidade = addressDetails.city || "Cidade não identificada";
+              const estado = addressDetails.state || "Estado não identificado";
+              const pais = addressDetails.country || "País não identificado";
+
+              this.currentMarker.setPopupContent(`
+                <b>Endereço:</b><br>
+                Rua: ${rua}<br>
+                Bairro: ${bairro}<br>
+                Cidade: ${cidade}<br>
+                Estado: ${estado}<br>
+                País: ${pais}
+              `);
             }
-            const address = response.display_name;  // O nome completo do endereço
-            this.currentMarker.setPopupContent(`<b>Endereço:</b><br>${address}`);
-            console.log('Endereço:', address);
           },
           (error) => {
             console.error('Erro ao buscar o endereço:', error);

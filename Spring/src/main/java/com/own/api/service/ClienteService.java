@@ -52,5 +52,21 @@ public class ClienteService {
             throw new ClienteException("Telefone inválido. Digite um telefone válido.");
         }
 
+        if (cliente.getLat() == 0 || cliente.getLng() == 0) {
+            throw new ClienteException("Selecione no mapa a posição aproximada do endereço.");
+        }
+
+        if (cliente.getLogradouro() == null || cliente.getLogradouro().isEmpty()) {
+            throw new ClienteException("O logradouro deve ser informado.");
+        }
+
+        if (cliente.getNumero() == null || cliente.getNumero().isEmpty()) {
+            throw new ClienteException("O numero deve ser informado.");
+        }
+
+        if (cliente.getBairro() == null || cliente.getBairro().isEmpty()) {
+            throw new ClienteException("O nome do bairro deve ser informado.");
+        }
+
     }
 }

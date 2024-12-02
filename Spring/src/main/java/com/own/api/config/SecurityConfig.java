@@ -4,6 +4,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.own.api.repository.UserRepository;
+import com.own.api.service.jwt.JwtAuthenticationFilter;
 import com.own.api.service.jwt.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -43,25 +46,30 @@ public class SecurityConfig {
     private RSAPrivateKey privateKey;
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) // Usa a nova abordagem para desativar frameOptions
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll() // Permite acesso ao console do H2
-                        .requestMatchers("/geocode/**").permitAll() // Permite acesso ao console do H2
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/geocode").permitAll()
+                        .requestMatchers("/postalCode").permitAll()
+                        .requestMatchers("/getAddressByLatLon/**").permitAll()
                         .requestMatchers("/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "users").permitAll()
-                        .requestMatchers("/cliente/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/cliente/save").hasRole("ADMIN")
                         .requestMatchers("/rotas/**").permitAll()
                         .requestMatchers("/getAddressByLatLon/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll() // Permite acesso ao Swagger UI
-                        .requestMatchers("/v3/api-docs/**").permitAll() // Permite acesso aos endpoints de documentação
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
-                .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()));
+                .addFilterBefore(jwtAuthenticationFilter(), BearerTokenAuthenticationFilter.class)
+                .httpBasic(Customizer.withDefaults());
+
         return http.build();
     }
+
 
     @Bean
     JwtDecoder jwtDecoder() {
@@ -86,5 +94,11 @@ public class SecurityConfig {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         return authenticationManagerBuilder.build();
     }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(jwtDecoder());
+    }
+
 
 }

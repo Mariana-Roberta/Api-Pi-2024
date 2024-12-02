@@ -38,21 +38,6 @@ public class GeocodingService {
         return response;
     }
 
-    public String geocodeAddress(String street, String city, String postalCode) {
-        // Montando a URL para a consulta Nominatim
-        String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
-                .queryParam("street", street)
-                .queryParam("city", city)
-                .queryParam("postalcode", postalCode)
-                .queryParam("format", "json")
-                .toUriString();
-
-        // Fazendo a requisição GET à API Nominatim
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-        return response.getBody(); // Retorna o resultado em formato JSON
-    }
-
     public String getCoordinatesFromAddress(String address) {
         // Nominatim URL base
         String url = UriComponentsBuilder.fromHttpUrl(NOMINATIM_URL)
@@ -66,5 +51,39 @@ public class GeocodingService {
         // Retornar a resposta (você pode parsear o JSON aqui, se necessário)
         return response;
     }
+
+    public String getAddressByPostalCode(String postalCode) {
+        // Construir a URL de consulta com o código postal
+        String url = UriComponentsBuilder.fromHttpUrl(NOMINATIM_URL)
+                .queryParam("postalcode", postalCode)
+                .queryParam("country", "Brazil") // Adicione para restringir ao Brasil
+                .queryParam("format", "json")
+                .toUriString();
+
+        System.out.println("URL gerada: " + url); // Log para verificar a URL gerada
+
+        String response = null;
+        try {
+            // Fazer a requisição para a API do Nominatim
+            response = restTemplate.getForObject(url, String.class);
+
+            // Log da resposta para debug
+            System.out.println("Resposta da API: " + response);
+
+        } catch (Exception e) {
+            // Tratar possíveis exceções
+            System.err.println("Erro ao fazer a requisição para a API: " + e.getMessage());
+        }
+
+        // Caso a resposta seja nula ou vazia, retornar uma mensagem adequada
+        if (response == null || response.isEmpty()) {
+            System.err.println("Nenhum resultado encontrado para o código postal.");
+            return "[]"; // Retornar um JSON vazio para indicar ausência de resultados
+        }
+
+        return response;
+    }
+
+
 }
 

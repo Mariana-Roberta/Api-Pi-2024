@@ -1,5 +1,8 @@
 package com.own.api.service;
 
+import com.own.api.exception.ClienteException;
+import com.own.api.exception.RotasException;
+import com.own.api.model.Cliente;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +16,8 @@ public class OpenRouteService {
     private static final String API_KEY = "5b3ce3597851110001cf62481a809977a4254c9ea52da021c457b484";
 
     public Map<String, double[][]> getRoute(List<List<Double>> coordinates) {
+        rotasExceptionHandler(coordinates);
+
         RestTemplate restTemplate = new RestTemplate();
     
         HttpHeaders headers = new HttpHeaders();
@@ -55,6 +60,8 @@ public class OpenRouteService {
     }
     
     public List<String> getDirections(List<List<Double>> coordinates) {
+        rotasExceptionHandler(coordinates);
+
         RestTemplate restTemplate = new RestTemplate();
     
         HttpHeaders headers = new HttpHeaders();
@@ -106,6 +113,10 @@ public class OpenRouteService {
     
         return allDirections;
     }
-    
-    
+
+    private void rotasExceptionHandler(List<List<Double>> coordinates) {
+        if (coordinates.size() <= 1 || coordinates == null) {
+            throw new RotasException("Lista de pedidos vazia.");
+        }
+    }
 }

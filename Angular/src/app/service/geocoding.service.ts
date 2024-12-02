@@ -14,7 +14,7 @@ export class GeoService {
     // Função para buscar coordenadas a partir do CEP
     getCoordinatesFromZipCode(zipCode: string): Observable<any> {
         const url = `https://nominatim.openstreetmap.org/search?postalcode=${zipCode}&country=Brazil&format=json`;
-        return this.http.get<any>(url);
+        return this.http.get<any>(`${this.apiUrl}/postalCode?postalCode=${zipCode}`);
     }
 
     getAddressByLatLon(lat: number, lon: number): Observable<any> {

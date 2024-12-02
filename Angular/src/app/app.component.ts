@@ -4,16 +4,19 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./service/auth.service";
 import {authGuard} from "./guard/auth.guard";
 import {BrowserModule} from "@angular/platform-browser";
+import {NgxMaskDirective, provideNgxMask} from "ngx-mask";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskDirective
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthService, multi: true },
+    provideNgxMask()
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
