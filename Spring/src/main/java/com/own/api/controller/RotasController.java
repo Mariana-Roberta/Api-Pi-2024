@@ -7,6 +7,7 @@ import com.own.api.service.OpenRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class RotasController {
 
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
 public ResponseEntity<?> generateBestRoute(@RequestBody List<Cliente> clients) {
    
     List<List<Double>> coordinates = new ArrayList<>();
@@ -75,6 +77,7 @@ public ResponseEntity<?> generateBestRoute(@RequestBody List<Cliente> clients) {
 }
 
 @PostMapping("/directions")
+@PreAuthorize("hasRole('ADMIN')")
 public Map<String, Object> generateDirections(@RequestBody List<Cliente> clients) {
     // Passo 1: Extrair as coordenadas (longitude, latitude) dos clientes
     List<List<Double>> coordinates = new ArrayList<>();

@@ -54,12 +54,22 @@ export class AuthService {
     localStorage.setItem('adminStatus', JSON.stringify(adminStatus));
   }
 
+  isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
+
   getAuthStatus(): boolean {
-    return JSON.parse(localStorage.getItem('authStatus') || 'false');
+    if (this.isBrowser()) {
+      return localStorage.getItem('authStatus') === 'true';
+    }
+    return false;
   }
 
   getAdminStatus(): boolean {
-    return JSON.parse(localStorage.getItem('adminStatus') || 'false');
+    if (this.isBrowser()) {
+      return localStorage.getItem('adminStatus') === 'true';
+    }
+    return false;
   }
 
   getUserRole(): string | null {
